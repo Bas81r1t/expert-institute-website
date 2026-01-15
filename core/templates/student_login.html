@@ -1,0 +1,184 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Login - Expert Institute</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Spinner */
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .spinner {
+            border: 3px solid rgba(255,255,255,0.1);
+            border-left-color: #3b82f6;
+            border-radius: 50%;
+            width: 30px; height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        /* Popup Animation */
+        @keyframes zoomIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .modal-box { animation: zoomIn 0.3s ease-out forwards; }
+        
+        textarea::-webkit-scrollbar { width: 4px; }
+        textarea::-webkit-scrollbar-thumb { background-color: #4b5563; border-radius: 4px; }
+    </style>
+</head>
+
+<body class="font-sans antialiased overflow-hidden h-screen relative bg-white">
+
+    <div class="absolute inset-0 z-0 w-full h-full flex flex-col">
+        
+        <nav class="bg-white shadow-sm border-b border-gray-100 py-3 shrink-0">
+            <div class="container mx-auto px-4 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" class="h-10 md:h-12 w-auto">
+                    <div class="text-left">
+                        <h1 class="text-base md:text-xl font-bold text-gray-800 leading-tight">EXPERT INSTITUTE OF</h1>
+                        <h2 class="text-[10px] md:text-sm text-gray-600">COMPUTER MANAGEMENT (IT)</h2>
+                    </div>
+                </div>
+                <div class="hidden lg:flex items-center gap-6 text-gray-600 font-semibold text-sm">
+                    <span><i class="fas fa-user mr-1"></i> Student Login</span>
+                    <span>Courses</span>
+                    <span>Donate</span>
+                    <span class="text-blue-600"><i class="fas fa-user-shield"></i> Admin</span>
+                    <span class="bg-green-500 text-white px-5 py-2 rounded-full shadow font-bold">Enroll Now</span>
+                </div>
+                <div class="lg:hidden text-gray-700 text-2xl"><i class="fas fa-bars"></i></div>
+            </div>
+        </nav>
+
+        <div class="relative flex-1 bg-gray-900 text-white flex flex-col justify-center overflow-hidden">
+            <img src="{% static 'images/children.jpg' %}" class="absolute inset-0 w-full h-full object-cover opacity-40">
+            
+            <div class="container mx-auto px-4 relative z-10 h-full flex flex-col justify-center">
+                <div class="max-w-3xl mt-10">
+                    <span class="bg-blue-600 text-white text-[10px] md:text-xs font-bold px-3 py-1 rounded uppercase mb-4 inline-block tracking-wider">Classic Education</span>
+                    <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4 drop-shadow-lg">
+                        EMPOWERING MINDS, <br>
+                        <span class="text-green-400">TRANSFORMING FUTURES</span>
+                    </h1>
+                    <p class="text-gray-200 text-base md:text-lg mb-8 max-w-xl drop-shadow-md font-light">
+                        Join Expert Institute to master computer skills and shape your career with industry-leading courses.
+                    </p>
+                    <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:-translate-y-1">
+                        Donate Now
+                    </button>
+                </div>
+
+                <div class="mt-auto mb-8 hidden md:block">
+                    <h3 class="text-lg font-bold mb-4 text-white drop-shadow-md">Quick Actions</h3>
+                    <div class="grid grid-cols-5 gap-4">
+                        <div class="bg-white p-4 rounded-xl text-center text-gray-800 shadow-lg"><i class="fas fa-user-graduate text-blue-600 text-2xl mb-2"></i><p class="text-xs font-bold">Our Students</p></div>
+                        <div class="bg-white p-4 rounded-xl text-center text-gray-800 shadow-lg"><i class="fas fa-download text-blue-600 text-2xl mb-2"></i><p class="text-xs font-bold">Downloads</p></div>
+                        <div class="bg-white p-4 rounded-xl text-center text-gray-800 shadow-lg"><i class="fas fa-desktop text-blue-600 text-2xl mb-2"></i><p class="text-xs font-bold">View Courses</p></div>
+                        <div class="bg-white p-4 rounded-xl text-center text-gray-800 shadow-lg"><i class="fas fa-bell text-red-600 text-2xl mb-2"></i><p class="text-xs font-bold">Notices</p></div>
+                        <div class="bg-white p-4 rounded-xl text-center text-gray-800 shadow-lg"><i class="fas fa-headset text-blue-600 text-2xl mb-2"></i><p class="text-xs font-bold">Support</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="absolute inset-0 z-10 bg-black/50 backdrop-blur-sm"></div>
+
+    <a href="{% url 'home' %}" class="absolute top-5 right-5 z-50 text-white hover:text-red-400 transition transform hover:rotate-90 duration-300 cursor-pointer">
+        <i class="fas fa-times text-4xl drop-shadow-lg"></i>
+    </a>
+
+    <div id="loadingScreen" class="hidden absolute inset-0 z-[60] bg-black/90 flex flex-col justify-center items-center backdrop-blur-sm transition-opacity duration-300">
+        <div class="spinner mb-4"></div>
+        <h2 class="text-white text-xl font-bold animate-pulse">Verifying Credentials...</h2>
+        <p class="text-gray-300 text-sm mt-2">Please wait...</p>
+    </div>
+
+    <div class="absolute inset-0 z-20 flex justify-center items-center p-4">
+        
+        <div class="modal-box w-full max-w-4xl bg-[#0f172a] rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row border border-gray-700/50">
+            
+            <div class="hidden md:flex w-1/2 relative bg-gray-900 flex-col justify-end p-10 overflow-hidden group">
+                <img src="{% static 'images/children.jpg' %}" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition duration-700 ease-in-out">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent"></div>
+                <div class="relative z-10">
+                    <h3 class="text-white text-3xl font-bold mb-2 leading-tight">Master the Future of <br> <span class="text-blue-500">Technology</span></h3>
+                    <p class="text-gray-400 text-sm">Join Expert Institute to unlock your potential.</p>
+                </div>
+            </div>
+
+            <div class="w-full md:w-1/2 p-8 md:p-12 bg-[#0f172a] text-white flex flex-col justify-center">
+                
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold mb-1">EXPERT INSTITUTE OF COMPUTER MANAGEMENT (IT)</h2>
+                    <p class="text-gray-400 text-sm">Please enter your details to login.</p>
+                </div>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="mb-4 p-3 rounded-lg text-sm font-semibold text-center {% if message.tags == 'success' %}bg-green-500/10 text-green-400 border border-green-500/20{% else %}bg-red-500/10 text-red-400 border border-red-500/20{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form id="loginForm" method="POST" class="space-y-4">
+                    {% csrf_token %}
+                    
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1 ml-1">Full Name</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><i class="fas fa-user text-gray-500 text-sm"></i></div>
+                            <input type="text" name="name" required class="w-full pl-10 pr-4 py-3 bg-[#1e293b] border border-gray-700 text-white text-sm rounded-xl focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition placeholder-gray-600" placeholder="e.g. Rahul Verma">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-400 mb-1 ml-1">Mobile</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><i class="fas fa-phone text-gray-500 text-sm"></i></div>
+                                <input type="tel" name="mobile" required class="w-full pl-10 pr-4 py-3 bg-[#1e293b] border border-gray-700 text-white text-sm rounded-xl focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition placeholder-gray-600" placeholder="98765...">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-gray-400 mb-1 ml-1">Email</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><i class="fas fa-envelope text-gray-500 text-sm"></i></div>
+                                <input type="email" name="email" required class="w-full pl-10 pr-4 py-3 bg-[#1e293b] border border-gray-700 text-white text-sm rounded-xl focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition placeholder-gray-600" placeholder="mail@xyz.com">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-400 mb-1 ml-1">Address</label>
+                        <div class="relative">
+                            <div class="absolute top-3.5 left-0 pl-3 flex items-start pointer-events-none"><i class="fas fa-map-marker-alt text-gray-500 text-sm"></i></div>
+                            <textarea name="address" required rows="2" class="w-full pl-10 pr-4 py-3 bg-[#1e293b] border border-gray-700 text-white text-sm rounded-xl focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition placeholder-gray-600 resize-none" placeholder="Enter your full address"></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-blue-900/20 transition-all duration-200 transform active:scale-[0.98] mt-2">
+                        Login 
+                    </button>
+                </form>
+
+                <p class="text-center text-xs text-gray-500 mt-6">
+                    New student? <a href="#" class="text-blue-400 hover:text-blue-300 font-medium">Contact Office</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            document.getElementById('loadingScreen').classList.remove('hidden');
+            setTimeout(() => { this.submit(); }, 2000);
+        });
+    </script>
+
+</body>
+</html>

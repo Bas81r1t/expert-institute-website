@@ -1,0 +1,308 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate - Expert Institute</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1f2937; }
+        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+        
+        /* Focus Ring for Inputs */
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+    </style>
+</head>
+
+<body class="font-sans pt-[73px] relative min-h-screen text-gray-800">
+
+    <div class="fixed inset-0 z-0">
+        <img src="{% static 'images/children.jpg' %}" alt="Background" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+    </div>
+
+    <div class="relative z-10">
+
+        <nav class="fixed top-0 left-0 w-full bg-white/95 backdrop-blur-md shadow-md z-50 border-b border-gray-200">
+            <div class="container mx-auto px-4 py-3 relative">
+                <div class="flex justify-between items-center">
+                    
+                    <div class="flex items-center gap-3">
+                        <a href="{% url 'home' %}" class="flex-shrink-0">
+                            <img src="{% static 'images/logo.png' %}" alt="Logo" class="h-16 md:h-18 w-auto object-contain"> 
+                        </a>
+
+                        <div class="text-left flex flex-col justify-center">
+                            <h1 class="text-sm md:text-xl font-extrabold text-gray-900 leading-none tracking-tight uppercase">
+                                EXPERT INSTITUTE
+                            </h1>
+                            <h2 class="text-[10px] md:text-xs font-bold text-blue-700 leading-tight uppercase mt-0.5">
+                                OF COMPUTER MANAGEMENT
+                            </h2>
+                            <h3 class="text-[9px] md:text-xs font-semibold text-gray-500 leading-none mt-0.5">
+                                (Run by: Jan Sewa Samiti)
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div class="hidden lg:flex items-center gap-4">
+                        {% if student_data %}
+                            <a href="{% url 'student_profile' %}" class="flex items-center gap-2 bg-blue-50 border border-blue-200 px-3 py-1.5 rounded-full hover:bg-blue-100 transition">
+                                <div class="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs"><i class="fas fa-user"></i></div>
+                                <span class="text-gray-700 font-bold text-sm">{{ student_data.name }}</span>
+                            </a>
+                        {% else %}
+                            <a href="{% url 'student_login' %}" class="text-gray-600 hover:text-blue-600 flex items-center gap-2 font-semibold">
+                                <i class="fas fa-user"></i> Student Login
+                            </a>
+                        {% endif %}
+
+                        <a href="{% url 'home' %}" class="transition px-2 hover:text-blue-600 font-semibold">Home</a>
+                        <a href="{% url 'courses' %}" class="transition px-2 hover:text-blue-600 font-semibold">Courses</a>
+                        
+                        <a href="{% url 'donate' %}" class="transition px-2 text-blue-700 font-bold underline underline-offset-4 decoration-2">Donate</a>
+                        
+                        <a href="{% url 'dashboard' %}" class="flex items-center gap-2 transition font-semibold hover:text-blue-600">
+                            <i class="fas fa-user-shield"></i> Admin
+                        </a>
+
+                        <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-full font-semibold transition shadow-md hover:shadow-lg">
+                            Enroll Now
+                        </a>
+                    </div>
+
+                    <button id="mobile-menu-btn" class="lg:hidden text-gray-700 focus:outline-none p-2 rounded hover:bg-gray-100">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="mobile-menu" class="hidden lg:hidden absolute top-full left-0 w-full bg-white shadow-xl border-t border-gray-100 flex flex-col p-4 space-y-4 max-h-[80vh] overflow-y-auto">
+                {% if student_data %}
+                    <a href="{% url 'student_profile' %}" class="flex items-center gap-3 bg-blue-50 p-4 rounded-xl border border-blue-100 shadow-sm">
+                        <div class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center text-lg"><i class="fas fa-user"></i></div>
+                        <div><span class="block font-bold text-gray-800">{{ student_data.name }}</span><span class="text-xs text-blue-600">View Profile</span></div>
+                    </a>
+                {% else %}
+                    <a href="{% url 'student_login' %}" class="flex items-center gap-3 text-gray-700 font-bold p-3 hover:bg-gray-50 rounded-lg border border-transparent hover:border-gray-200 transition">
+                        <div class="w-8 h-8 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center"><i class="fas fa-user"></i></div> Student Login
+                    </a>
+                {% endif %}
+                
+                <a href="{% url 'home' %}" class="flex items-center gap-3 text-gray-700 font-bold p-3 hover:bg-gray-50 rounded-lg border border-transparent hover:border-gray-200 transition">
+                    <div class="w-8 h-8 bg-gray-100 text-gray-600 rounded-full flex items-center justify-center"><i class="fas fa-home"></i></div> Home
+                </a>
+                
+                <a href="{% url 'courses' %}" class="flex items-center gap-3 text-gray-700 font-bold p-3 hover:bg-gray-50 rounded-lg border border-transparent hover:border-gray-200 transition">
+                    <div class="w-8 h-8 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center"><i class="fas fa-book-open"></i></div> Courses
+                </a>
+                
+                <a href="{% url 'donate' %}" class="flex items-center gap-3 bg-blue-100 text-blue-800 border-l-4 border-blue-600 font-bold p-3 rounded-lg transition">
+                    <div class="w-8 h-8 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center"><i class="fas fa-hand-holding-heart"></i></div> Donate
+                </a>
+                
+                <a href="{% url 'dashboard' %}" class="flex items-center gap-3 text-gray-700 font-bold p-3 hover:bg-gray-50 rounded-lg border border-transparent hover:border-gray-200 transition">
+                    <div class="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center"><i class="fas fa-user-shield"></i></div> Admin Dashboard
+                </a>
+                
+                <div class="border-t border-gray-100 pt-3">
+                    <a href="#" class="block w-full bg-green-500 text-center text-white py-3 rounded-xl font-bold shadow-md hover:bg-green-600 active:scale-95 transition">Enroll Now</a>
+                </div>
+                <div class="pb-10"></div> 
+            </div>
+        </nav>
+
+        <div class="container mx-auto px-4 py-10 md:py-16">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2 drop-shadow-md">SUPPORT SHIKSHA:</h1>
+                    <h2 class="text-2xl md:text-3xl font-bold text-blue-300 mb-6 drop-shadow-md">EMPOWER A CHILD'S FUTURE</h2>
+                    
+                    <div class="rounded-xl overflow-hidden shadow-2xl border-4 border-white/20">
+                        <img src="{% static 'images/children.jpg' %}" alt="Smiling Children" class="w-full h-auto object-cover transform hover:scale-105 transition duration-700">
+                    </div>
+                    
+                    <p class="mt-6 text-gray-200 text-lg leading-relaxed drop-shadow">
+                        Your contribution can change a life. Help us provide computer education to underprivileged children and build a brighter future for the nation.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-2xl border border-gray-100 relative">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-1 rounded-full text-sm font-bold shadow-lg uppercase tracking-wide">
+                        Secure Donation
+                    </div>
+
+                    <h3 class="text-2xl font-extrabold text-gray-800 mb-2 text-center mt-2">DONATE ONLINE</h3>
+                    <p class="text-center text-gray-500 text-sm mb-6">Your donation helps educate a child for months.</p>
+                    
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6">
+                        <button type="button" onclick="setAmount(1500)" class="amount-btn px-2 py-2 border-2 border-gray-200 rounded-lg text-gray-600 font-bold hover:bg-blue-50 focus:border-blue-600 focus:bg-blue-50 focus:text-blue-700 transition text-sm">₹1500</button>
+                        <button type="button" onclick="setAmount(3000)" class="amount-btn px-2 py-2 border-2 border-gray-200 rounded-lg text-gray-600 font-bold hover:bg-blue-50 focus:border-blue-600 focus:bg-blue-50 focus:text-blue-700 transition text-sm">₹3000</button>
+                        <button type="button" onclick="setAmount(6000)" class="amount-btn px-2 py-2 border-2 border-gray-200 rounded-lg text-gray-600 font-bold hover:bg-blue-50 focus:border-blue-600 focus:bg-blue-50 focus:text-blue-700 transition text-sm">₹6000</button>
+                        <button type="button" onclick="setAmount(12000)" class="amount-btn px-2 py-2 border-2 border-gray-200 rounded-lg text-gray-600 font-bold hover:bg-blue-50 focus:border-blue-600 focus:bg-blue-50 focus:text-blue-700 transition text-sm">₹12000</button>
+                    </div>
+                    
+                    <p class="text-center text-xs font-semibold text-blue-600 mb-4 bg-blue-50 py-2 rounded-lg border border-blue-100">
+                        HELPS EDUCATE <span class="font-extrabold">1 CHILD</span> FOR <span class="font-extrabold">3 MONTHS</span>
+                    </p>
+
+                    <form action="#" method="POST" class="space-y-4">
+                        {% csrf_token %}
+                        
+                        <div>
+                            <input type="number" id="customAmount" name="amount" placeholder="Other Amount (₹)" class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg font-bold text-gray-700 focus:bg-white transition" required>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" name="full_name" placeholder="Full Name *" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm" required>
+                            <input type="email" name="email" placeholder="Email ID *" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm" required>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="tel" name="mobile" placeholder="Mobile No *" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm" required>
+                            <input type="text" name="dob" placeholder="DOB" onfocus="(this.type='date')" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" name="pan" placeholder="PAN No" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm uppercase">
+                            <select name="country" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm bg-white">
+                                <option value="India">India</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" name="state" placeholder="State" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm">
+                            <input type="text" name="city" placeholder="City" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm">
+                        </div>
+
+                        <textarea name="address" rows="2" placeholder="Full Address *" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm" required></textarea>
+                        
+                        <input type="number" name="pincode" placeholder="Pincode *" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm" required>
+
+                        <div class="text-[10px] text-gray-500 leading-tight bg-gray-50 p-3 rounded border border-gray-200">
+                            * 50% TAX BENEFIT UNDER SECTION 80G. <br><strong>PAN: AACTS7973G</strong>
+                        </div>
+
+                        <div class="flex items-start gap-2">
+                            <input type="checkbox" id="terms" required class="mt-1 w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500">
+                            <label for="terms" class="text-xs text-gray-600">
+                                Agree to receive updates on donation & receipt.
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold text-lg py-4 rounded-lg shadow-lg hover:shadow-green-200 transition transform hover:-translate-y-1">
+                            PROCEED TO PAY
+                        </button>
+                    </form>
+                    
+                    <div class="mt-6 text-center flex justify-center gap-4 text-gray-400 text-2xl">
+                        <i class="fab fa-cc-visa"></i> <i class="fab fa-cc-mastercard"></i> <i class="fab fa-cc-paypal"></i> <i class="fab fa-google-pay"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="bg-gray-900 text-gray-300 pt-16 pb-8 relative z-20 mt-10">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <img src="{% static 'images/logo.png' %}" alt="Logo" class="h-10 w-auto bg-white rounded p-1">
+                        <h3 class="text-white text-lg font-bold uppercase">Expert Institute</h3>
+                    </div>
+                    <p class="text-sm leading-relaxed mb-4">
+                        Run by <strong>Jan Sewa Samiti</strong>. We are dedicated to providing computer education to the underprivileged sections of society.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-600 hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 hover:text-white transition"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-400 hover:text-white transition"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-white text-lg font-bold mb-4 uppercase tracking-wide">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="{% url 'home' %}" class="hover:text-orange-500 transition"><i class="fas fa-angle-right mr-2 text-gray-600"></i> Home</a></li>
+                        <li><a href="{% url 'courses' %}" class="hover:text-orange-500 transition"><i class="fas fa-angle-right mr-2 text-gray-600"></i> All Courses</a></li>
+                        <li><a href="{% url 'donate' %}" class="hover:text-orange-500 transition"><i class="fas fa-angle-right mr-2 text-gray-600"></i> Donate Now</a></li>
+                        <li><a href="#" class="hover:text-orange-500 transition"><i class="fas fa-angle-right mr-2 text-gray-600"></i> Student Gallery</a></li>
+                        <li><a href="{% url 'student_login' %}" class="hover:text-orange-500 transition"><i class="fas fa-angle-right mr-2 text-gray-600"></i> Student Login</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white text-lg font-bold mb-4 uppercase tracking-wide">Top Courses</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-orange-500 transition"><i class="fas fa-circle text-[6px] mr-2 text-blue-500"></i> ADCA Course</a></li>
+                        <li><a href="#" class="hover:text-orange-500 transition"><i class="fas fa-circle text-[6px] mr-2 text-blue-500"></i> CCC Certificate</a></li>
+                        <li><a href="#" class="hover:text-orange-500 transition"><i class="fas fa-circle text-[6px] mr-2 text-blue-500"></i> Tally Prime</a></li>
+                        <li><a href="#" class="hover:text-orange-500 transition"><i class="fas fa-circle text-[6px] mr-2 text-blue-500"></i> Web Designing</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white text-lg font-bold mb-4 uppercase tracking-wide">Contact Us</h3>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt text-orange-500 mt-1"></i>
+                            <span>Near City Station, Lucknow,<br>Uttar Pradesh, India</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-phone-alt text-orange-500"></i>
+                            <span>+91 98765 43210</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-orange-500"></i>
+                            <span>info@expertinstitute.org</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 text-center text-xs text-gray-500">
+                <p>&copy; 2024 Expert Institute of Computer Management. All Rights Reserved.</p>
+                <p class="mt-2">Designed & Developed with <i class="fas fa-heart text-red-500"></i> for Social Cause.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => { menu.classList.toggle('hidden'); });
+
+        function setAmount(amount) {
+            document.getElementById('customAmount').value = amount;
+            // Visual feedback for selected amount buttons
+            const buttons = document.querySelectorAll('.amount-btn');
+            buttons.forEach(b => {
+                if(b.innerText.includes(amount)) {
+                    b.classList.remove('border-gray-200', 'text-gray-600');
+                    b.classList.add('border-blue-600', 'bg-blue-50', 'text-blue-700');
+                } else {
+                    b.classList.remove('border-blue-600', 'bg-blue-50', 'text-blue-700');
+                    b.classList.add('border-gray-200', 'text-gray-600');
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

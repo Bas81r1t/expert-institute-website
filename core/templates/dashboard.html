@@ -1,0 +1,281 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Expert Institute</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Custom Scrollbar for dark theme */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1f2937; }
+        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+
+<body class="font-sans pt-[73px] relative min-h-screen text-gray-800">
+
+    <div class="fixed inset-0 z-0">
+        <img src="{% static 'images/children.jpg' %}" alt="Background" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black/75 backdrop-blur-sm"></div>
+    </div>
+
+    <div class="relative z-10 h-[calc(100vh-73px)]">
+
+        <nav class="fixed top-0 left-0 w-full bg-white/95 backdrop-blur-md shadow-md z-[100] border-b border-gray-200">
+            <div class="container mx-auto px-4 py-3 relative">
+                <div class="flex justify-between items-center">
+                    
+                    <div class="flex items-center gap-3">
+                    <a href="{% url 'home' %}" class="flex-shrink-0">
+                        <img src="{% static 'images/logo.png' %}" alt="Logo" class="h-16 md:h-18 w-auto object-contain"> 
+                    </a>
+
+                    <div class="text-left flex flex-col justify-center">
+                        <h1 class="text-sm md:text-xl font-extrabold text-gray-900 leading-none tracking-tight uppercase">
+                            EXPERT INSTITUTE
+                        </h1>
+                        
+                        <h2 class="text-[10px] md:text-xs font-bold text-blue-700 leading-tight uppercase mt-0.5">
+                            OF COMPUTER MANAGEMENT
+                        </h2>
+                        
+                        <h3 class="text-[9px] md:text-xs font-semibold text-red-500 leading-none mt-0.5">
+                            (Run by: Jan Sewa Samiti)
+                        </h3>
+                    </div>
+                </div>
+
+                    <div class="hidden lg:flex items-center gap-4">
+                        {% if student_data %}
+                            <a href="{% url 'student_profile' %}" class="flex items-center gap-2 bg-blue-50 border border-blue-200 px-3 py-1.5 rounded-full hover:bg-blue-100 transition">
+                                <div class="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs"><i class="fas fa-user"></i></div>
+                                <span class="text-gray-700 font-bold text-sm">{{ student_data.name }}</span>
+                            </a>
+                        {% else %}
+                            <a href="{% url 'student_login' %}" class="text-gray-600 hover:text-blue-600 flex items-center gap-2 font-semibold">
+                                <i class="fas fa-user"></i> Student Login
+                            </a>
+                        {% endif %}
+
+                        <a href="{% url 'home' %}" class="transition px-2 {% if request.resolver_match.url_name == 'home' %}text-blue-700 font-bold underline underline-offset-4 decoration-2{% else %}text-gray-600 hover:text-blue-600 font-semibold{% endif %}">Home</a>
+                        <a href="{% url 'courses' %}" class="transition px-2 {% if request.resolver_match.url_name == 'courses' %}text-blue-700 font-bold underline underline-offset-4 decoration-2{% else %}text-gray-600 hover:text-blue-600 font-semibold{% endif %}">Courses</a>
+                        <a href="{% url 'donate' %}" class="transition px-2 {% if request.resolver_match.url_name == 'donate' %}text-blue-700 font-bold underline underline-offset-4 decoration-2{% else %}text-gray-600 hover:text-blue-600 font-semibold{% endif %}">Donate</a>
+                        
+                        <a href="{% url 'dashboard' %}" class="flex items-center gap-2 transition px-4 py-2 rounded-full font-bold {% if request.resolver_match.url_name == 'dashboard' %}text-blue-700 border border-blue-600 bg-blue-50{% else %}text-gray-600 border border-transparent hover:text-blue-600{% endif %}">
+                            <i class="fas fa-user-shield text-lg"></i> <span>Admin</span>
+                        </a>
+
+                        <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-full font-semibold transition shadow-md hover:shadow-lg">
+                            Enroll Now
+                        </a>
+                    </div>
+
+                    <button id="mobile-menu-btn" class="lg:hidden text-gray-700 focus:outline-none p-2 rounded hover:bg-gray-100">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="mobile-menu" class="hidden lg:hidden absolute top-full left-0 w-full bg-white shadow-xl border-t border-gray-100 flex flex-col p-4 space-y-4 max-h-[80vh] overflow-y-auto">
+                {% if student_data %}
+                    <a href="{% url 'student_profile' %}" class="flex items-center gap-3 bg-blue-50 p-3 rounded-lg border border-blue-100 shadow-sm">
+                        <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center"><i class="fas fa-user"></i></div>
+                        <div><span class="block font-bold text-gray-800">{{ student_data.name }}</span><span class="text-xs text-blue-600">View Profile</span></div>
+                    </a>
+                {% else %}
+                    <a href="{% url 'student_login' %}" class="flex items-center gap-3 text-gray-700 font-bold p-3 hover:bg-gray-50 rounded-lg border border-transparent hover:border-gray-200 transition">
+                        <div class="w-8 h-8 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center"><i class="fas fa-user"></i></div> Student Login
+                    </a>
+                {% endif %}
+                
+                <a href="{% url 'home' %}" class="flex items-center gap-3 p-3 rounded-lg transition {% if request.resolver_match.url_name == 'home' %}bg-blue-100 text-blue-800 border-l-4 border-blue-600 font-bold{% else %}text-gray-700 hover:bg-gray-50 border-l-4 border-transparent{% endif %}">
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center {% if request.resolver_match.url_name == 'home' %}bg-blue-200 text-blue-700{% else %}bg-gray-100 text-gray-600{% endif %}"><i class="fas fa-home"></i></div> Home
+                </a>
+                <a href="{% url 'courses' %}" class="flex items-center gap-3 p-3 rounded-lg transition {% if request.resolver_match.url_name == 'courses' %}bg-blue-100 text-blue-800 border-l-4 border-blue-600 font-bold{% else %}text-gray-700 hover:bg-gray-50 border-l-4 border-transparent{% endif %}">
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center {% if request.resolver_match.url_name == 'courses' %}bg-blue-200 text-blue-700{% else %}bg-yellow-100 text-yellow-600{% endif %}"><i class="fas fa-book-open"></i></div> Courses
+                </a>
+                <a href="{% url 'donate' %}" class="flex items-center gap-3 p-3 rounded-lg transition {% if request.resolver_match.url_name == 'donate' %}bg-blue-100 text-blue-800 border-l-4 border-blue-600 font-bold{% else %}text-gray-700 hover:bg-gray-50 border-l-4 border-transparent{% endif %}">
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center {% if request.resolver_match.url_name == 'donate' %}bg-blue-200 text-blue-700{% else %}bg-pink-100 text-pink-600{% endif %}"><i class="fas fa-hand-holding-heart"></i></div> Donate
+                </a>
+                <a href="{% url 'dashboard' %}" class="flex items-center gap-3 p-3 rounded-lg transition {% if request.resolver_match.url_name == 'dashboard' %}bg-blue-100 text-blue-800 border-l-4 border-blue-600 font-bold{% else %}text-gray-700 hover:bg-gray-50 border-l-4 border-transparent{% endif %}">
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center {% if request.resolver_match.url_name == 'dashboard' %}bg-blue-200 text-blue-700{% else %}bg-blue-100 text-blue-600{% endif %}"><i class="fas fa-user-shield"></i></div> Admin Dashboard
+                </a>
+                
+                <div class="border-t border-gray-100 pt-3">
+                    <a href="#" class="block w-full bg-green-500 text-center text-white py-3 rounded-xl font-bold shadow-md hover:bg-green-600 active:scale-95 transition">Enroll Now</a>
+                </div>
+                <div class="pb-10"></div> 
+            </div>
+        </nav>
+
+        <div class="flex h-full overflow-hidden">
+            
+            <aside class="w-64 bg-[#1e293b]/95 backdrop-blur-sm text-white flex flex-col hidden md:flex h-full border-r border-gray-700">
+                <div class="p-6 flex items-center gap-3 border-b border-gray-700 bg-[#1e293b]/50">
+                    <i class="fas fa-tachometer-alt text-2xl text-blue-400"></i>
+                    <div>
+                        <h1 class="font-bold text-lg">Control Panel</h1>
+                        <p class="text-xs text-gray-400">Management System</p>
+                    </div>
+                </div>
+
+                <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto no-scrollbar">
+                    <a href="{% url 'dashboard' %}" class="flex items-center gap-3 px-4 py-3 bg-blue-600 rounded-lg text-white shadow-md">
+                        <i class="fas fa-th-large"></i> Dashboard
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition">
+                        <i class="fas fa-user-graduate"></i> Students
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition">
+                        <i class="fas fa-book"></i> Courses
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition">
+                        <i class="fas fa-credit-card"></i> Payments
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition">
+                        <i class="fas fa-hand-holding-heart"></i> Donations
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg transition">
+                        <i class="fas fa-file-alt"></i> Reports
+                    </a>
+                </nav>
+
+                <div class="p-4 border-t border-gray-700 bg-[#1e293b]/50">
+                    <a href="{% url 'home' %}" class="flex items-center gap-3 px-4 py-2 text-gray-400 hover:text-red-400 transition">
+                        <i class="fas fa-sign-out-alt"></i> Exit to Website
+                    </a>
+                </div>
+            </aside>
+
+            <div class="flex-1 flex flex-col h-full overflow-hidden bg-transparent">
+                
+                <header class="bg-white/95 backdrop-blur-sm shadow-sm py-4 px-8 flex justify-between items-center border-b shrink-0">
+                    <h2 class="text-2xl font-bold text-gray-800">Admin Overview</h2>
+                    <div class="flex items-center gap-4">
+                        <div class="text-right hidden sm:block">
+                            <h4 class="font-bold text-gray-800">Super Admin</h4>
+                            <p class="text-xs text-gray-500">Access Level: High</p>
+                        </div>
+                        <div class="w-10 h-10 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold shadow-md">A</div>
+                    </div>
+                </header>
+
+                <main class="flex-1 overflow-y-auto p-8 no-scrollbar">
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 h-80">
+                            <h3 class="font-bold text-gray-700 mb-4">Student Enrollment Breakdown</h3>
+                            <div class="h-64 flex justify-center">
+                                <canvas id="enrollmentChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 h-80">
+                            <h3 class="font-bold text-gray-700 mb-4">Monthly Revenue</h3>
+                            <div class="h-64">
+                                <canvas id="revenueChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-8 mb-10">
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-bold text-gray-700 text-lg">Recently Registered Students (Live Data)</h3>
+                                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Database Connected</span>
+                            </div>
+                            
+                            <div class="overflow-x-auto max-h-[400px] overflow-y-auto border border-gray-100 rounded-lg custom-scrollbar">
+                                <table class="w-full text-left text-sm text-gray-600 relative">
+                                    <thead class="bg-gray-100 text-gray-800 font-semibold border-b sticky top-0 z-10 shadow-sm">
+                                        <tr>
+                                            <th class="py-3 px-4">ID</th>
+                                            <th class="py-3 px-4">Student Name</th>
+                                            <th class="py-3 px-4">Mobile</th>
+                                            <th class="py-3 px-4">Email</th>
+                                            <th class="py-3 px-4">Address</th>
+                                            <th class="py-3 px-4">Date Joined</th>
+                                            <th class="py-3 px-4 text-center">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100">
+                                        {% for std in students %}
+                                        <tr class="hover:bg-blue-50 transition duration-150">
+                                            <td class="py-3 px-4 text-gray-500">#{{ std.id }}</td>
+                                            <td class="py-3 px-4 font-bold text-gray-800">{{ std.name }}</td>
+                                            <td class="py-3 px-4 text-blue-600 font-mono">{{ std.mobile }}</td>
+                                            <td class="py-3 px-4">{{ std.email }}</td>
+                                            <td class="py-3 px-4 truncate max-w-xs" title="{{ std.address }}">{{ std.address }}</td>
+                                            <td class="py-3 px-4 text-xs font-medium text-gray-500">{{ std.date_joined|date:"d M Y" }}</td>
+                                            <td class="py-3 px-4 text-center">
+                                                {% if std.is_online %}
+                                                    <span class="inline-flex items-center gap-1 bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-bold border border-green-200 shadow-sm animate-pulse">
+                                                        <i class="fas fa-circle text-[6px]"></i> Active
+                                                    </span>
+                                                {% else %}
+                                                    <span class="inline-flex items-center gap-1 bg-red-50 text-red-500 px-2 py-1 rounded-full text-xs font-bold border border-red-100 opacity-80">
+                                                        <i class="fas fa-power-off text-[8px]"></i>Logout
+                                                    </span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% empty %}
+                                        <tr>
+                                            <td colspan="7" class="py-10 text-center text-gray-400">No students have registered yet.</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                            <h3 class="font-bold text-gray-700 mb-4">Recent Donations</h3>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-sm text-gray-600">
+                                    <thead class="bg-gray-50 text-gray-800 font-semibold border-b">
+                                        <tr>
+                                            <th class="py-3 px-2">Donor Name</th>
+                                            <th class="py-3 px-2">Date</th>
+                                            <th class="py-3 px-2 text-green-600">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-b hover:bg-gray-50">
+                                            <td class="py-3 px-2">Rakesh Gupta</td>
+                                            <td class="py-3 px-2">Jan 10, 2024</td>
+                                            <td class="py-3 px-2 font-bold">₹ 10,000</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="py-3 px-2">Global Computers</td>
+                                            <td class="py-3 px-2">Jan 05, 2024</td>
+                                            <td class="py-3 px-2 font-bold">₹ 25,000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => { document.getElementById('mobile-menu').classList.toggle('hidden'); });
+
+        const ctx1 = document.getElementById('enrollmentChart').getContext('2d');
+        new Chart(ctx1, { type: 'doughnut', data: { labels: ['New', 'Ongoing', 'Completed'], datasets: [{ data: [120, 300, 150], backgroundColor: ['#3b82f6', '#10b981', '#64748b'] }] } });
+        const ctx2 = document.getElementById('revenueChart').getContext('2d');
+        new Chart(ctx2, { type: 'line', data: { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], datasets: [{ label: 'Revenue', data: [15000, 25000, 20000, 35000, 30000, 45000], borderColor: '#3b82f6', fill: true, backgroundColor: 'rgba(59, 130, 246, 0.1)' }] } });
+    </script>
+</body>
+</html>

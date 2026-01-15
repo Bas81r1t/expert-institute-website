@@ -1,0 +1,1000 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert Institute - Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* Spinner */
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-left-color: #ffffff;
+            border-radius: 50%;
+            width: 50px; height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans pt-[73px]">
+
+    <div id="loadingScreen" class="hidden fixed inset-0 bg-blue-900 bg-opacity-95 z-[100] flex flex-col justify-center items-center transition-opacity duration-300">
+        <div class="spinner mb-4"></div>
+        <h2 id="loadingText" class="text-white text-2xl font-bold animate-pulse">Processing...</h2>
+        <p class="text-blue-200 mt-2">Please wait a moment.</p>
+    </div>
+
+    <nav class="fixed top-0 left-0 w-full bg-white shadow-md z-50 border-b border-gray-200">
+        <div class="container mx-auto px-4 py-3 relative">
+            <div class="flex justify-between items-center">
+               <div class="flex items-center gap-3">
+                    <a href="{% url 'home' %}" class="flex-shrink-0">
+                        <img src="{% static 'images/logo.png' %}" alt="Logo" class="h-16 md:h-18 w-auto object-contain"> 
+                    </a>
+
+                    <div class="text-left flex flex-col justify-center">
+                        <h1 class="text-sm md:text-xl font-extrabold text-gray-900 leading-none tracking-tight uppercase">
+                            EXPERT INSTITUTE
+                        </h1>
+                        
+                        <h2 class="text-[10px] md:text-xs font-bold text-blue-700 leading-tight uppercase mt-0.5">
+                            OF COMPUTER MANAGEMENT
+                        </h2>
+                        
+                        <h3 class="text-[9px] md:text-xs font-semibold text-red-500 leading-none mt-0.5">
+                            (Run by: Jan Sewa Samiti)
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="hidden lg:flex items-center gap-4">
+                    {% if student_data %}
+                        <a href="{% url 'student_profile' %}" class="flex items-center gap-3 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-4 py-2 rounded-full shadow-sm transition transform hover:scale-105 group">
+                            <div class="w-8 h-8 bg-blue-600 group-hover:bg-blue-700 text-white rounded-full flex items-center justify-center text-sm shadow-md border-2 border-white">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <span class="text-gray-700 group-hover:text-blue-800 font-semibold">{{ student_data.name }}</span>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'student_login' %}" class="text-gray-600 hover:text-blue-600 flex items-center gap-2 text-sm md:text-base transition hover:scale-105">
+                            <i class="fas fa-user"></i> <span class="font-semibold">Student Login</span>
+                        </a>
+                    {% endif %}
+                    <a href="{% url 'courses' %}" class="text-gray-600 hover:text-blue-600 font-semibold transition hover:underline underline-offset-4 decoration-2 px-2">Courses</a>
+                    <a href="{% url 'donate' %}" class="text-gray-600 hover:text-blue-600 font-semibold transition hover:underline underline-offset-4 decoration-2 px-2">Donate</a>
+                    <a href="{% url 'dashboard' %}" class="flex items-center gap-2 text-blue-700 hover:text-white border border-blue-600 hover:bg-blue-600 px-4 py-2 rounded-full transition font-semibold text-sm md:text-base shadow-sm">
+                        <i class="fas fa-user-shield text-lg"></i> <span>Admin</span>
+                    </a>
+                    <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-full font-semibold transition text-sm md:text-base shadow-md hover:shadow-lg">
+                        Enroll Now
+                    </a>
+                </div>
+
+                <button id="mobile-menu-btn" class="lg:hidden text-gray-700 focus:outline-none p-2 rounded hover:bg-gray-100">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden lg:hidden absolute top-full left-0 w-full bg-white shadow-xl border-t border-gray-100 flex flex-col p-4 space-y-4 max-h-[80vh] overflow-y-auto">
+            {% if student_data %}
+                <a href="{% url 'student_profile' %}" class="flex items-center gap-3 bg-blue-50 p-4 rounded-xl border border-blue-100 shadow-sm">
+                    <div class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center text-lg"><i class="fas fa-user"></i></div>
+                    <div><span class="block font-bold text-gray-800">{{ student_data.name }}</span><span class="text-xs text-blue-600">View Profile</span></div>
+                </a>
+            {% else %}
+                <a href="{% url 'student_login' %}" class="flex items-center gap-3 text-gray-700 font-bold p-3 hover:bg-gray-50 rounded-lg border border-transparent hover:border-gray-200 transition">
+                    <div class="w-8 h-8 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center"><i class="fas fa-user"></i></div> Student Login
+                </a>
+            {% endif %}
+            <a href="{% url 'courses' %}" class="flex items-center gap-3 text-gray-700 font-bold p-3 hover:bg-gray-50 rounded-lg border border-transparent hover:border-gray-200 transition">
+                <div class="w-8 h-8 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center"><i class="fas fa-book-open"></i></div> Courses
+            </a>
+            <a href="{% url 'donate' %}" class="flex items-center gap-3 text-gray-700 font-bold p-3 hover:bg-gray-50 rounded-lg border border-transparent hover:border-gray-200 transition">
+                <div class="w-8 h-8 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center"><i class="fas fa-hand-holding-heart"></i></div> Donate
+            </a>
+            <a href="{% url 'dashboard' %}" class="flex items-center gap-3 text-gray-700 font-bold p-3 hover:bg-gray-50 rounded-lg border border-transparent hover:border-gray-200 transition">
+                <div class="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center"><i class="fas fa-user-shield"></i></div> Admin Dashboard
+            </a>
+            <div class="border-t border-gray-100 pt-3">
+                <a href="#" class="block w-full bg-green-500 text-center text-white py-3 rounded-xl font-bold shadow-md hover:bg-green-600 active:scale-95 transition">Enroll Now</a>
+            </div>
+            <div class="pb-10"></div> 
+        </div>
+    </nav>
+
+    {% if messages %}
+        <div id="successMessage" class="fixed top-24 right-5 z-[100] transition-opacity duration-500 ease-out opacity-100">
+            {% for message in messages %}
+            <div class="bg-white border-l-4 border-green-500 text-gray-800 px-6 py-4 rounded-lg shadow-2xl flex items-center gap-3 animate-bounce">
+                <div class="text-green-500 text-2xl"><i class="fas fa-check-circle"></i></div>
+                <div><p class="font-bold text-lg">Success!</p><p class="text-sm text-gray-600">{{ message }}</p></div>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="relative w-full flex flex-col justify-center items-center overflow-hidden" style="min-height: 500px; background-color: #111827;">
+        
+        <img src="{% static 'images/children.jpg' %}" class="hero-slide absolute inset-0 w-full h-full object-cover opacity-60 transition-opacity duration-[2000ms] ease-in-out">
+        
+        <img src="{% static 'images/ngo1.png' %}" class="hero-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-[2000ms] ease-in-out">
+        
+        <img src="{% static 'images/ngo2.png' %}" class="hero-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-[2000ms] ease-in-out">
+        
+        <img src="{% static 'images/ngo3.png' %}" class="hero-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-[2000ms] ease-in-out">
+        
+        <img src="{% static 'images/ngo4.png' %}" class="hero-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-[2000ms] ease-in-out">
+        
+        <div class="absolute inset-0 bg-black/40 z-10"></div>
+
+        <div class="container mx-auto px-4 relative z-20 flex flex-col justify-center items-center text-center h-full py-8">
+            <div class="mb-6"><span class="bg-orange-500 text-white text-xs md:text-sm font-bold px-6 py-2 rounded-full uppercase tracking-wide shadow-md">SKILL INDIA MISSION</span></div>
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4 drop-shadow-lg uppercase tracking-wide text-white">DIGITAL LITERACY <br> FOR EVERYONE</h1>
+            <p class="text-gray-100 text-base md:text-xl mb-8 max-w-2xl drop-shadow-md font-medium leading-relaxed">Empowering rural youth and women with computer skills for a better tomorrow. <br class="hidden md:block"> Join our mission.</p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="{% url 'courses' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-md shadow-lg transition transform hover:-translate-y-0.5 text-center min-w-[160px]">Our Courses</a>
+                <a href="{% url 'donate' %}" class="bg-transparent border-2 border-white hover:bg-white hover:text-gray-900 text-white font-bold py-3 px-8 rounded-md shadow-lg transition transform hover:-translate-y-0.5 text-center min-w-[160px]">Support Us</a>
+            </div>
+        </div>
+    </div>
+
+   <section class="container mx-auto px-4 md:px-6 py-10 bg-white relative z-20">
+        
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-blue-800 uppercase mb-3 tracking-wide">Why Choose Us?</h2>
+            <div class="w-24 h-1.5 bg-orange-500 mx-auto rounded-full mb-4"></div>
+            <p class="text-gray-500 text-base md:text-lg font-light">Click on the cards below to know more</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            
+            <div onclick="openWhyUsModal('fee')" class="group bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl hover:border-orange-200 transition-all duration-300 transform hover:-translate-y-2 relative overflow-hidden cursor-pointer">
+                <div class="absolute top-0 left-0 w-full h-1.5 bg-gray-200 group-hover:bg-orange-500 transition-colors duration-300"></div>
+                <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-3xl font-bold mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm"><span class="font-serif">₹</span></div>
+                <h3 class="font-bold text-xl text-gray-800 mb-3 group-hover:text-blue-700 transition-colors">Affordable Fees</h3>
+                <p class="text-gray-500 text-sm leading-relaxed group-hover:text-gray-600">Premium education at a nominal cost. Click to compare fees.</p>
+                <div class="mt-4 text-blue-600 text-sm font-bold flex items-center gap-2 group-hover:underline">See Fee Structure <i class="fas fa-arrow-right"></i></div>
+            </div>
+
+            <div onclick="openWhyUsModal('govt')" class="group bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl hover:border-orange-200 transition-all duration-300 transform hover:-translate-y-2 relative overflow-hidden cursor-pointer">
+                <div class="absolute top-0 left-0 w-full h-1.5 bg-gray-200 group-hover:bg-orange-500 transition-colors duration-300"></div>
+                <div class="w-16 h-16 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center text-3xl mb-6 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300 shadow-sm"><i class="fas fa-certificate"></i></div>
+                <h3 class="font-bold text-xl text-gray-800 mb-3 group-hover:text-purple-700 transition-colors">Govt. Recognized</h3>
+                <p class="text-gray-500 text-sm leading-relaxed group-hover:text-gray-600">Valid ISO 9001:2015 certificates. Click to view details.</p>
+                <div class="mt-4 text-purple-600 text-sm font-bold flex items-center gap-2 group-hover:underline">Verify Recognition <i class="fas fa-arrow-right"></i></div>
+            </div>
+
+            <div onclick="openWhyUsModal('practical')" class="group bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl hover:border-orange-200 transition-all duration-300 transform hover:-translate-y-2 relative overflow-hidden cursor-pointer">
+                <div class="absolute top-0 left-0 w-full h-1.5 bg-gray-200 group-hover:bg-orange-500 transition-colors duration-300"></div>
+                <div class="w-16 h-16 bg-green-50 text-green-600 rounded-full flex items-center justify-center text-3xl mb-6 group-hover:bg-green-600 group-hover:text-white transition-colors duration-300 shadow-sm"><i class="fas fa-laptop-code"></i></div>
+                <h3 class="font-bold text-xl text-gray-800 mb-3 group-hover:text-green-700 transition-colors">Practical Training</h3>
+                <p class="text-gray-500 text-sm leading-relaxed group-hover:text-gray-600">100% Practical focus. Click to see our Lab Facilities.</p>
+                <div class="mt-4 text-green-600 text-sm font-bold flex items-center gap-2 group-hover:underline">View Lab Policy <i class="fas fa-arrow-right"></i></div>
+            </div>
+
+            <div onclick="openWhyUsModal('placement')" class="group bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl hover:border-orange-200 transition-all duration-300 transform hover:-translate-y-2 relative overflow-hidden cursor-pointer">
+                <div class="absolute top-0 left-0 w-full h-1.5 bg-gray-200 group-hover:bg-orange-500 transition-colors duration-300"></div>
+                <div class="w-16 h-16 bg-red-50 text-red-600 rounded-full flex items-center justify-center text-3xl mb-6 group-hover:bg-red-600 group-hover:text-white transition-colors duration-300 shadow-sm"><i class="fas fa-users"></i></div>
+                <h3 class="font-bold text-xl text-gray-800 mb-3 group-hover:text-red-700 transition-colors">Placement Support</h3>
+                <p class="text-gray-500 text-sm leading-relaxed group-hover:text-gray-600">Dedicated job assistance. Click to see success stories.</p>
+                <div class="mt-4 text-red-600 text-sm font-bold flex items-center gap-2 group-hover:underline">Placement Record <i class="fas fa-arrow-right"></i></div>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="whyUsModal" class="fixed inset-0 z-[150] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeWhyUsModal()"></div>
+        
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl z-10 overflow-hidden relative transform transition-all scale-95 opacity-0" id="whyUsModalContent">
+            
+            <div class="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                <h3 id="modalTitle" class="text-xl font-bold text-gray-800">Title Here</h3>
+                <button onclick="closeWhyUsModal()" class="text-gray-500 hover:text-red-500 transition text-2xl focus:outline-none">&times;</button>
+            </div>
+
+            <div id="modalBody" class="p-6 md:p-8 overflow-y-auto max-h-[60vh] text-gray-600 leading-relaxed">
+                </div>
+
+            <div class="p-4 bg-gray-50 border-t border-gray-100 text-right">
+                <button onclick="closeWhyUsModal()" class="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow-md">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const whyUsModal = document.getElementById('whyUsModal');
+        const whyUsContent = document.getElementById('whyUsModalContent');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+
+        const whyUsData = {
+            'fee': {
+                title: 'Fee Comparison: Market vs. Expert Institute',
+                content: `
+                    <div class="text-center mb-4">
+                        <i class="fas fa-hand-holding-usd text-5xl text-blue-500 mb-2"></i>
+                        <p class="font-bold text-gray-800">Education is a Right, Not a Business</p>
+                    </div>
+                    <p class="mb-4">We are an NGO-run institute, which is why our fees are subsidized to help students from all backgrounds.</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-500 border rounded-lg overflow-hidden">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                <tr>
+                                    <th class="px-6 py-3">Course</th>
+                                    <th class="px-6 py-3">Market Fee</th>
+                                    <th class="px-6 py-3 text-green-700">Our Fee (Subsidized)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b">
+                                    <td class="px-6 py-4 font-medium text-gray-900">ADCA (1 Year)</td>
+                                    <td class="px-6 py-4 text-red-500 line-through">₹15,000+</td>
+                                    <td class="px-6 py-4 font-bold text-green-600">₹12,000</td>
+                                </tr>
+                                <tr class="bg-gray-50 border-b">
+                                    <td class="px-6 py-4 font-medium text-gray-900">CCC (3 Months)</td>
+                                    <td class="px-6 py-4 text-red-500 line-through">₹5,000+</td>
+                                    <td class="px-6 py-4 font-bold text-green-600">₹3,500</td>
+                                </tr>
+                                <tr class="bg-white">
+                                    <td class="px-6 py-4 font-medium text-gray-900">Web Design</td>
+                                    <td class="px-6 py-4 text-red-500 line-through">₹25,000+</td>
+                                    <td class="px-6 py-4 font-bold text-green-600">₹8,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="mt-4 text-xs text-gray-400">* Fees includes Books, Exam Fee & Certification.</p>
+                `
+            },
+            'govt': {
+                title: 'Government Recognized Certification',
+                content: `
+                    <div class="flex flex-col items-center justify-center text-center">
+                        <i class="fas fa-stamp text-6xl text-purple-600 mb-4"></i>
+                        <h4 class="text-lg font-bold text-gray-800 mb-2">ISO 9001:2015 Certified Institute</h4>
+                        <p class="mb-4">Our certificates are fully valid for all types of Government (SSC, Railway, Banking, State Exams) and Private sector jobs.</p>
+                        <ul class="text-left space-y-2 bg-purple-50 p-4 rounded-lg w-full">
+                            <li class="flex items-center gap-2"><i class="fas fa-check-circle text-purple-600"></i> Registered under Niti Aayog.</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check-circle text-purple-600"></i> MSME Registered Organization.</li>
+                            <li class="flex items-center gap-2"><i class="fas fa-check-circle text-purple-600"></i> Valid for Employment Exchange registration.</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'practical': {
+                title: '100% Practical Training Methodology',
+                content: `
+                    <div class="text-center mb-4">
+                        <i class="fas fa-desktop text-5xl text-green-500 mb-2"></i>
+                        <h4 class="font-bold text-gray-800">One Student - One Computer Policy</h4>
+                    </div>
+                    <p class="mb-4">We believe that computer skills cannot be learned just by theory. We ensure that every student gets a dedicated computer system during their lab hours.</p>
+                    <div class="grid grid-cols-2 gap-4 mt-4">
+                        <div class="bg-green-50 p-3 rounded text-center">
+                            <h5 class="font-bold text-green-700">24x7 Power</h5>
+                            <p class="text-xs">Uninterrupted learning</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded text-center">
+                            <h5 class="font-bold text-green-700">Free WiFi</h5>
+                            <p class="text-xs">High-speed internet</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded text-center">
+                            <h5 class="font-bold text-green-700">Live Projects</h5>
+                            <p class="text-xs">Real-world examples</p>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded text-center">
+                            <h5 class="font-bold text-green-700">Expert Faculty</h5>
+                            <p class="text-xs">Guided support</p>
+                        </div>
+                    </div>
+                `
+            },
+            'placement': {
+                title: 'Placement Assistance & Career Guide',
+                content: `
+                    <div class="text-center mb-4">
+                        <i class="fas fa-briefcase text-5xl text-red-500 mb-2"></i>
+                        <h4 class="font-bold text-gray-800">From Learning to Earning</h4>
+                    </div>
+                    <p class="mb-4">We don't just leave you after the course. We provide dedicated support to help you find a job or start your own work.</p>
+                    <h5 class="font-bold text-gray-800 mb-2">Our Recent Success Stories:</h5>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 bg-red-50 p-3 rounded border-l-4 border-red-500">
+                            <div class="w-8 h-8 bg-red-200 rounded-full flex items-center justify-center text-red-700 font-bold">R</div>
+                            <div>
+                                <p class="font-bold text-sm">Rahul Kumar</p>
+                                <p class="text-xs text-gray-500">Placed as Accountant at V-Mart</p>
+                            </div>
+                        </li>
+                        <li class="flex items-center gap-3 bg-red-50 p-3 rounded border-l-4 border-red-500">
+                            <div class="w-8 h-8 bg-red-200 rounded-full flex items-center justify-center text-red-700 font-bold">S</div>
+                            <div>
+                                <p class="font-bold text-sm">Sneha Gupta</p>
+                                <p class="text-xs text-gray-500">Data Entry Operator at HDFC Bank (Contract)</p>
+                            </div>
+                        </li>
+                    </ul>
+                `
+            }
+        };
+
+        function openWhyUsModal(type) {
+            const data = whyUsData[type];
+            if(data) {
+                modalTitle.innerText = data.title;
+                modalBody.innerHTML = data.content;
+                whyUsModal.classList.remove('hidden');
+                // Animation
+                setTimeout(() => {
+                    whyUsContent.classList.remove('scale-95', 'opacity-0');
+                    whyUsContent.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            }
+        }
+
+        function closeWhyUsModal() {
+            whyUsContent.classList.remove('scale-100', 'opacity-100');
+            whyUsContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                whyUsModal.classList.add('hidden');
+            }, 300);
+        }
+    </script>
+
+    <!-- NGO Section 3 -->
+     <section class="bg-blue-900 py-16 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 20px 20px;"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+                
+                <div class="p-4">
+                    <div class="text-4xl md:text-5xl font-extrabold text-orange-400 mb-2">5000+</div>
+                    <div class="text-sm md:text-lg font-medium opacity-90">Students Trained</div>
+                </div>
+
+                <div class="p-4 border-l border-blue-700">
+                    <div class="text-4xl md:text-5xl font-extrabold text-green-400 mb-2">1200+</div>
+                    <div class="text-sm md:text-lg font-medium opacity-90">Jobs Secured</div>
+                </div>
+
+                <div class="p-4 border-l border-blue-700">
+                    <div class="text-4xl md:text-5xl font-extrabold text-yellow-400 mb-2">50+</div>
+                    <div class="text-sm md:text-lg font-medium opacity-90">Villages Covered</div>
+                </div>
+
+                <div class="p-4 border-l border-blue-700">
+                    <div class="text-4xl md:text-5xl font-extrabold text-pink-400 mb-2">15+</div>
+                    <div class="text-sm md:text-lg font-medium opacity-90">Years of Service</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+      <!-- shikha section -->
+    <section class="py-10 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+        
+        <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#2563eb 1px, transparent 1px); background-size: 20px 20px;"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            
+            <div class="text-center mb-16 max-w-3xl mx-auto">
+                <span class="text-orange-500 font-bold tracking-widest uppercase text-sm">Our Impact Areas</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-2 mb-4">Key Interventions Under <span class="text-blue-700">Digital Saksharta</span></h2>
+                <div class="w-24 h-1.5 bg-green-500 mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-600 text-lg leading-relaxed">
+                    We focus on holistic development through targeted initiatives, ensuring that education reaches the last mile and transforms lives.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <div onclick="openInterventionModal('digital')" class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl border border-gray-100 transition-all duration-300 transform hover:-translate-y-2 text-center cursor-pointer">
+                    <div class="w-20 h-20 mx-auto bg-blue-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors duration-300">
+                        <i class="fas fa-laptop-code text-4xl text-blue-600 group-hover:text-white transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-blue-700 transition-colors">Digital Literacy</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Providing computer education to rural youth, bridging the digital divide and opening doors to modern opportunities.
+                    </p>
+                    <div class="mt-4 text-blue-600 text-xs font-bold uppercase tracking-wide group-hover:underline">View Impact <i class="fas fa-arrow-right ml-1"></i></div>
+                </div>
+
+                <div onclick="openInterventionModal('skill')" class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl border border-gray-100 transition-all duration-300 transform hover:-translate-y-2 text-center cursor-pointer">
+                    <div class="w-20 h-20 mx-auto bg-green-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-green-600 transition-colors duration-300">
+                        <i class="fas fa-tools text-3xl text-green-600 group-hover:text-white transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-green-700 transition-colors">Skill Development</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Vocational training in practical skills like Tally, Design, and Hardware to ensure employability and self-reliance.
+                    </p>
+                    <div class="mt-4 text-green-600 text-xs font-bold uppercase tracking-wide group-hover:underline">View Courses <i class="fas fa-arrow-right ml-1"></i></div>
+                </div>
+
+                <div onclick="openInterventionModal('women')" class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl border border-gray-100 transition-all duration-300 transform hover:-translate-y-2 text-center cursor-pointer">
+                    <div class="w-20 h-20 mx-auto bg-pink-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-pink-600 transition-colors duration-300">
+                        <i class="fas fa-female text-4xl text-pink-600 group-hover:text-white transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-pink-700 transition-colors">Women Empowerment</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Special batches and scholarships for girls to promote gender equality and financial independence.
+                    </p>
+                    <div class="mt-4 text-pink-600 text-xs font-bold uppercase tracking-wide group-hover:underline">View Stories <i class="fas fa-arrow-right ml-1"></i></div>
+                </div>
+
+                <div onclick="openInterventionModal('career')" class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl border border-gray-100 transition-all duration-300 transform hover:-translate-y-2 text-center cursor-pointer">
+                    <div class="w-20 h-20 mx-auto bg-orange-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-orange-600 transition-colors duration-300">
+                        <i class="fas fa-compass text-4xl text-orange-600 group-hover:text-white transition-colors duration-300"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-orange-700 transition-colors">Career Guidance</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Mentorship sessions and job placement support to help students navigate their professional journey successfully.
+                    </p>
+                    <div class="mt-4 text-orange-600 text-xs font-bold uppercase tracking-wide group-hover:underline">View Process <i class="fas fa-arrow-right ml-1"></i></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div id="interventionModal" class="fixed inset-0 z-[200] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeInterventionModal()"></div>
+        
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg z-10 overflow-hidden relative transform transition-all scale-95 opacity-0" id="interventionModalContent">
+            
+            <div class="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                <h3 id="intModalTitle" class="text-xl font-bold text-gray-800">Title Here</h3>
+                <button onclick="closeInterventionModal()" class="text-gray-500 hover:text-red-500 transition text-2xl focus:outline-none">&times;</button>
+            </div>
+
+            <div id="intModalBody" class="p-6 md:p-8 overflow-y-auto max-h-[60vh] text-gray-600 leading-relaxed">
+                </div>
+
+            <div class="p-4 bg-gray-50 border-t border-gray-100 text-right">
+                <button onclick="closeInterventionModal()" class="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow-md">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const intModal = document.getElementById('interventionModal');
+        const intModalContent = document.getElementById('interventionModalContent');
+        const intModalTitle = document.getElementById('intModalTitle');
+        const intModalBody = document.getElementById('intModalBody');
+
+        const interventionData = {
+            'digital': {
+                title: 'Digital Literacy Campaign',
+                content: `
+                    <div class="text-center mb-6">
+                        <div class="inline-block p-4 rounded-full bg-blue-50 mb-3">
+                            <i class="fas fa-laptop text-4xl text-blue-600"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-gray-800">Computer Labs in Villages</h4>
+                    </div>
+                    <p class="mb-4 text-center">We have established fully functional computer labs in over <strong>50 remote villages</strong>. Our curriculum is designed to make students digitally independent.</p>
+                    <ul class="space-y-2 bg-gray-50 p-4 rounded-lg text-sm">
+                        <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-500 mt-1"></i> Basic Computer Operations & Typing</li>
+                        <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-500 mt-1"></i> Safe Internet Usage & Cyber Security</li>
+                        <li class="flex items-start gap-2"><i class="fas fa-check-circle text-green-500 mt-1"></i> Digital Payments (UPI/Netbanking)</li>
+                    </ul>
+                    <div class="mt-4 text-center">
+                        <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full">Total Beneficiaries: 5000+</span>
+                    </div>
+                `
+            },
+            'skill': {
+                title: 'Vocational Skill Development',
+                content: `
+                    <div class="text-center mb-6">
+                        <div class="inline-block p-4 rounded-full bg-green-50 mb-3">
+                            <i class="fas fa-tools text-4xl text-green-600"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-gray-800">Job-Ready Courses</h4>
+                    </div>
+                    <p class="mb-4 text-center">Our skill development programs go beyond theory. We focus on practical skills that are in high demand in the job market.</p>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 p-3 border border-green-100 rounded-lg">
+                            <i class="fas fa-calculator text-green-500 text-xl"></i>
+                            <div>
+                                <p class="font-bold text-sm text-gray-800">Tally & Accounting</p>
+                                <p class="text-xs text-gray-500">For Commerce & Banking Jobs</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 border border-green-100 rounded-lg">
+                            <i class="fas fa-palette text-green-500 text-xl"></i>
+                            <div>
+                                <p class="font-bold text-sm text-gray-800">Graphic Designing</p>
+                                <p class="text-xs text-gray-500">For Creative & Media Jobs</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 border border-green-100 rounded-lg">
+                            <i class="fas fa-microchip text-green-500 text-xl"></i>
+                            <div>
+                                <p class="font-bold text-sm text-gray-800">Hardware & Networking</p>
+                                <p class="text-xs text-gray-500">For Technical Support Jobs</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            'women': {
+                title: 'Women Empowerment Initiative',
+                content: `
+                    <div class="text-center mb-6">
+                        <div class="inline-block p-4 rounded-full bg-pink-50 mb-3">
+                            <i class="fas fa-female text-4xl text-pink-600"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-gray-800">Educate a Girl, Empower a Nation</h4>
+                    </div>
+                    <div class="bg-pink-50 p-4 rounded-lg border-l-4 border-pink-500 mb-4 italic text-gray-700 text-sm">
+                        "Meet Anjali from Village Rampur. Before joining us, she had never touched a computer. Today, she works as a Data Operator and supports her family."
+                    </div>
+                    <p class="mb-4 text-center text-sm">We believe financial independence is key to empowerment.</p>
+                    <div class="text-center">
+                        <div class="inline-block bg-pink-100 text-pink-800 px-4 py-2 rounded-lg font-bold shadow-sm">
+                            <i class="fas fa-gift mr-2"></i> Special 50% Scholarship for Girls
+                        </div>
+                    </div>
+                `
+            },
+            'career': {
+                title: 'Career Guidance & Mentorship',
+                content: `
+                    <div class="text-center mb-6">
+                        <div class="inline-block p-4 rounded-full bg-orange-50 mb-3">
+                            <i class="fas fa-compass text-4xl text-orange-600"></i>
+                        </div>
+                        <h4 class="text-lg font-bold text-gray-800">Your Path to Success</h4>
+                    </div>
+                    <p class="mb-4 text-center">We don't just teach; we guide. Our mentorship program helps students navigate their career path with confidence.</p>
+                    <div class="relative pl-8 border-l-2 border-orange-200 space-y-6">
+                        <div class="relative">
+                            <span class="absolute -left-[41px] bg-orange-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                            <h5 class="font-bold text-sm text-gray-800">Resume Building</h5>
+                            <p class="text-xs text-gray-500">Workshops to create professional CVs.</p>
+                        </div>
+                        <div class="relative">
+                            <span class="absolute -left-[41px] bg-orange-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                            <h5 class="font-bold text-sm text-gray-800">Mock Interviews</h5>
+                            <p class="text-xs text-gray-500">Practice sessions with experts.</p>
+                        </div>
+                        <div class="relative">
+                            <span class="absolute -left-[41px] bg-orange-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                            <h5 class="font-bold text-sm text-gray-800">Job Fairs</h5>
+                            <p class="text-xs text-gray-500">Direct connection with local recruiters.</p>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        function openInterventionModal(type) {
+            const data = interventionData[type];
+            if(data) {
+                intModalTitle.innerText = data.title;
+                intModalBody.innerHTML = data.content;
+                intModal.classList.remove('hidden');
+                // Animation
+                setTimeout(() => {
+                    intModalContent.classList.remove('scale-95', 'opacity-0');
+                    intModalContent.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            }
+        }
+
+        function closeInterventionModal() {
+            intModalContent.classList.remove('scale-100', 'opacity-100');
+            intModalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                intModal.classList.add('hidden');
+            }, 300);
+        }
+    </script>
+
+
+   <section class="py-10 bg-white">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                
+                <div class="w-full md:w-1/2 relative group">
+                    <div class="absolute -inset-4 bg-orange-100 rounded-xl transform -rotate-3 group-hover:rotate-0 transition duration-500"></div>
+                    <img src="{% static 'images/ngo3.png' %}" alt="NGO Work" class="relative rounded-xl shadow-2xl w-full h-auto transform group-hover:scale-105 transition duration-500">
+                    
+                    <div class="absolute bottom-6 right-6 bg-white p-4 rounded-lg shadow-xl border-l-4 border-blue-600 hidden md:block">
+                        <p class="text-sm font-bold text-gray-800">Run by</p>
+                        <p class="text-blue-700 font-extrabold text-lg">Jan Sewa Samiti</p>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2">
+                    <span class="text-orange-500 font-bold tracking-widest uppercase text-sm">About Our Mission</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2 mb-6">Bridging the Digital Divide in <span class="text-blue-700">Rural India</span></h2>
+                    
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Expert Institute is not just a computer center; it is a movement started by <strong>Jan Sewa Samiti</strong> to ensure that no child remains deprived of modern education due to poverty.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed mb-8">
+                        We provide high-quality computer training at minimal costs, helping youth from rural backgrounds gain skills, confidence, and employment opportunities.
+                    </p>
+
+                    <div class="flex gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl">
+                                <i class="fas fa-hand-holding-heart"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Social Welfare</h4>
+                                <p class="text-xs text-gray-500">Empowering the needy</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xl">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Skill Development</h4>
+                                <p class="text-xs text-gray-500">Creating future leaders</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <button id="openStoryBtn" class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:-translate-y-1">
+                            Read Our Story <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div id="storyModal" class="hidden fixed inset-0 z-[200] flex justify-center items-center px-4">
+        
+        <div id="closeStoryOverlay" class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity"></div>
+        
+        <div class="bg-white w-full max-w-4xl rounded-2xl shadow-2xl overflow-hidden relative z-10 flex flex-col md:flex-row transform transition-all scale-95 opacity-0" id="modalBox">
+            
+            <button id="closeStoryBtn" class="absolute top-4 right-4 text-gray-500 hover:text-red-500 z-20 bg-white rounded-full p-2 shadow-md transition">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+
+            <div class="w-full md:w-2/5 relative h-64 md:h-auto">
+                <img src="{% static 'images/ngo3.png' %}" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
+                    <div class="text-white">
+                        <p class="text-sm font-light opacity-90">Since 2010</p>
+                        <h3 class="text-xl font-bold">A Journey of Hope</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full md:w-3/5 p-8 md:p-10 overflow-y-auto max-h-[80vh]">
+                <span class="text-orange-500 font-bold text-xs uppercase tracking-wide">Our Origin Story</span>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">From One Room to Empowering Thousands</h2>
+                
+                <div class="space-y-4 text-gray-600 leading-relaxed text-sm md:text-base">
+                    <p>
+                        It started in a small, rented room with just two old computers. The founders of <strong>Jan Sewa Samiti</strong> noticed that while the world was moving towards digitalization, the youth in our villages were being left behind simply because they couldn't afford expensive coaching fees.
+                    </p>
+                    <p>
+                        Determined to change this, we launched the <strong>Expert Institute</strong> with a simple mission: <em>"No child should be denied education due to lack of funds."</em>
+                    </p>
+                    <p>
+                        Initially, we faced many challenges—lack of electricity, resources, and skepticism. But as our first batch of students got jobs and started supporting their families, trust began to build.
+                    </p>
+                    <p>
+                        Today, we are proud to have trained over <strong>5,000 students</strong>. We provide not just computer skills, but also confidence and a path to dignity. Our mission continues until every rural child is digitally literate.
+                    </p>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-gray-100 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">EI</div>
+                        <p class="text-sm font-bold text-gray-800">Expert Institute Team</p>
+                    </div>
+                    <a href="{% url 'donate' %}" class="text-blue-600 font-bold hover:underline text-sm">Support our cause</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const storyModal = document.getElementById('storyModal');
+        const modalBox = document.getElementById('modalBox');
+        const openBtn = document.getElementById('openStoryBtn');
+        const closeBtn = document.getElementById('closeStoryBtn');
+        const overlay = document.getElementById('closeStoryOverlay');
+
+        function openModal() {
+            storyModal.classList.remove('hidden');
+            // Small timeout to allow 'hidden' to be removed before adding opacity classes for transition
+            setTimeout(() => {
+                modalBox.classList.remove('scale-95', 'opacity-0');
+                modalBox.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modalBox.classList.remove('scale-100', 'opacity-100');
+            modalBox.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                storyModal.classList.add('hidden');
+            }, 300); // Matches transition duration
+        }
+
+        openBtn.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+        overlay.addEventListener('click', closeModal);
+    </script>
+
+    <!-- ngo section 4 -->
+     <section class="py-19 bg-gray-50">
+        <div class="container mx-auto px-4">
+            
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800">Our <span class="text-blue-600">Top Courses</span></h2>
+                <div class="w-16 h-1 bg-orange-500 mx-auto mt-2 rounded-full"></div>
+                <p class="text-gray-500 mt-3">Job-oriented computer courses designed for your career growth.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300 group">
+                    <div class="h-48 bg-blue-600 flex items-center justify-center group-hover:bg-blue-700 transition">
+                        <i class="fas fa-laptop-code text-6xl text-white"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="bg-orange-100 text-orange-700 text-xs font-bold px-2 py-1 rounded uppercase">12 Months</span>
+                            <span class="text-blue-600 font-bold">₹12,000</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">ADCA (Advance Diploma)</h3>
+                        <p class="text-gray-500 text-sm mb-4">Complete computer application course covering Office, Tally, DTP, and Internet.</p>
+                        <a href="{% url 'courses' %}" class="block w-full text-center border-2 border-blue-600 text-blue-600 font-bold py-2 rounded hover:bg-blue-600 hover:text-white transition">View Details</a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300 group">
+                    <div class="h-48 bg-purple-600 flex items-center justify-center group-hover:bg-purple-700 transition">
+                        <i class="fas fa-certificate text-6xl text-white"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="bg-purple-100 text-purple-700 text-xs font-bold px-2 py-1 rounded uppercase">3 Months</span>
+                            <span class="text-purple-600 font-bold">₹3,500</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">CCC (Govt. Exam)</h3>
+                        <p class="text-gray-500 text-sm mb-4">Essential certificate course for government jobs (NIELIT recognized).</p>
+                        <a href="{% url 'courses' %}" class="block w-full text-center border-2 border-purple-600 text-purple-600 font-bold py-2 rounded hover:bg-purple-600 hover:text-white transition">View Details</a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300 group">
+                    <div class="h-48 bg-green-600 flex items-center justify-center group-hover:bg-green-700 transition">
+                        <i class="fas fa-code text-6xl text-white"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded uppercase">6 Months</span>
+                            <span class="text-green-600 font-bold">₹8,000</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Web Designing</h3>
+                        <p class="text-gray-600 text-sm mb-4">Learn HTML, CSS, JavaScript & Bootstrap to create stunning websites.</p>
+                        <a href="{% url 'courses' %}" class="block w-full text-center border-2 border-green-600 text-green-600 font-bold py-2 rounded hover:bg-green-600 hover:text-white transition">View Details</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center mt-10">
+                <a href="{% url 'courses' %}" class="inline-block bg-gray-800 text-white px-8 py-3 rounded-full font-semibold hover:bg-gray-900 transition shadow-lg">
+                    View All Courses <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+
+    <section class="py-10 bg-white relative">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Student <span class="text-orange-500">Success Stories</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="bg-blue-50 p-6 rounded-2xl border border-blue-100 relative">
+                    <i class="fas fa-quote-left text-4xl text-blue-200 absolute top-4 left-4"></i>
+                    <p class="text-gray-600 italic mb-6 relative z-10 pt-6">
+                        "I came from a very poor family and couldn't afford expensive coaching. Expert Institute gave me ADCA training at a very low fee. Today I am working as an Accountant."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
+                            <i class="fas fa-user text-gray-500"></i> </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">Rahul Verma</h4>
+                            <p class="text-xs text-blue-600">Accountant, Lucknow</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-orange-50 p-6 rounded-2xl border border-orange-100 relative">
+                    <i class="fas fa-quote-left text-4xl text-orange-200 absolute top-4 left-4"></i>
+                    <p class="text-gray-600 italic mb-6 relative z-10 pt-6">
+                        "The teachers here are very supportive. They focus on practical training which helped me clear my CCC exam with 'A' Grade in the first attempt."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
+                            <i class="fas fa-user text-gray-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">Priya Singh</h4>
+                            <p class="text-xs text-orange-600">Student, CCC</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 p-6 rounded-2xl border border-green-100 relative">
+                    <i class="fas fa-quote-left text-4xl text-green-200 absolute top-4 left-4"></i>
+                    <p class="text-gray-600 italic mb-6 relative z-10 pt-6">
+                        "Expert Institute is doing great work for rural youth. I learned Web Designing here and now I am starting my own freelancing work from home."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
+                            <i class="fas fa-user text-gray-500"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">Amit Kumar</h4>
+                            <p class="text-xs text-green-600">Freelancer</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ngo section 5 -->
+     <section class="py-16 bg-gradient-to-r from-blue-700 to-blue-900 text-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10">
+            <i class="fas fa-network-wired text-9xl absolute -top-10 -left-10 text-white"></i>
+            <i class="fas fa-globe text-9xl absolute -bottom-10 -right-10 text-white"></i>
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Transform Your Future?</h2>
+            <p class="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
+                Join thousands of students who have changed their lives with Expert Institute. 
+                Whether you want to learn or support our cause, the time is now.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:-translate-y-1">
+                    Apply for Admission
+                </a>
+                <a href="{% url 'donate' %}" class="bg-transparent border-2 border-white hover:bg-white hover:text-blue-900 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:-translate-y-1">
+                    Donate for Education
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <img src="{% static 'images/logo.png' %}" alt="Logo" class="h-10 w-auto bg-white rounded p-1">
+                        <h3 class="text-white text-lg font-bold uppercase">Expert Institute</h3>
+                    </div>
+                    <p class="text-sm leading-relaxed mb-4">
+                        Run by <strong>Jan Sewa Samiti</strong>. We are dedicated to providing computer education to the underprivileged sections of society to make them self-reliant.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-600 hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 hover:text-white transition"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-400 hover:text-white transition"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-white text-lg font-bold mb-4 uppercase tracking-wide">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="{% url 'home' %}" class="hover:text-orange-500 transition"><i class="fas fa-angle-right mr-2 text-gray-600"></i> Home</a></li>
+                        <li><a href="{% url 'courses' %}" class="hover:text-orange-500 transition"><i class="fas fa-angle-right mr-2 text-gray-600"></i> All Courses</a></li>
+                        <li><a href="{% url 'donate' %}" class="hover:text-orange-500 transition"><i class="fas fa-angle-right mr-2 text-gray-600"></i> Donate Now</a></li>
+                        <li><a href="#" class="hover:text-orange-500 transition"><i class="fas fa-angle-right mr-2 text-gray-600"></i> Student Gallery</a></li>
+                        <li><a href="{% url 'student_login' %}" class="hover:text-orange-500 transition"><i class="fas fa-angle-right mr-2 text-gray-600"></i> Student Login</a></li>
+                        <li><a href="#" class="hover:text-orange-500 transition"><i class="fas fa-angle-right mr-2 text-gray-600"></i> Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white text-lg font-bold mb-4 uppercase tracking-wide">Top Courses</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-orange-500 transition"><i class="fas fa-circle text-[6px] mr-2 text-blue-500"></i> ADCA Course</a></li>
+                        <li><a href="#" class="hover:text-orange-500 transition"><i class="fas fa-circle text-[6px] mr-2 text-blue-500"></i> CCC Certificate</a></li>
+                        <li><a href="#" class="hover:text-orange-500 transition"><i class="fas fa-circle text-[6px] mr-2 text-blue-500"></i> Tally Prime with GST</a></li>
+                        <li><a href="#" class="hover:text-orange-500 transition"><i class="fas fa-circle text-[6px] mr-2 text-blue-500"></i> Web Designing</a></li>
+                        <li><a href="#" class="hover:text-orange-500 transition"><i class="fas fa-circle text-[6px] mr-2 text-blue-500"></i> Digital Marketing</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white text-lg font-bold mb-4 uppercase tracking-wide">Contact Us</h3>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt text-orange-500 mt-1"></i>
+                            <span>Near City Azamgarh, Tarawa,<br>Uttar Pradesh, India - 276123</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-phone-alt text-orange-500"></i>
+                            <span>+91 98765 43210</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-orange-500"></i>
+                            <span>info@expertinstitute.org</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-clock text-orange-500"></i>
+                            <span>Mon - Sat: 9:00 AM - 6:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 text-center text-xs text-gray-500">
+                <p>&copy; 2024 Expert Institute of Computer Management. All Rights Reserved.</p>
+                <p class="mt-2">Designed & Developed with <i class="fas fa-heart text-red-500"></i> for Social Cause.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => { menu.classList.toggle('hidden'); });
+
+        setTimeout(function() {
+            const msgBox = document.getElementById('successMessage');
+            if (msgBox) {
+                msgBox.style.opacity = '0'; 
+                setTimeout(() => msgBox.remove(), 500); 
+            }
+        }, 2000);
+
+        // --- UPDATED SLIDESHOW SCRIPT ---
+        const slides = document.querySelectorAll('.hero-slide');
+        let currentSlide = 0;
+
+        // Ab har 5 Second (5000ms) par image change hogi
+        setInterval(() => {
+            // Current slide ko dheere se gayab karo
+            slides[currentSlide].classList.remove('opacity-60');
+            slides[currentSlide].classList.add('opacity-0');
+
+            // Next slide calculate karo
+            currentSlide = (currentSlide + 1) % slides.length;
+
+            // Next slide ko dheere se dikhao
+            slides[currentSlide].classList.remove('opacity-0');
+            slides[currentSlide].classList.add('opacity-60');
+        }, 5000); // 5000ms = 5 Seconds (Standard Professional Time)
+    </script>
+
+</body>
+</html>
