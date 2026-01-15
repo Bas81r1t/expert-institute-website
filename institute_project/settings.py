@@ -18,7 +18,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-wzaf^%7o8qjeo0d=+63znkq^6^7ktp343lyhbnoi6rd$7$!4rf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -75,12 +74,14 @@ WSGI_APPLICATION = 'institute_project.wsgi.application'
 
 
 # Database
-# Supabase PostgreSQL Connection
+# Supabase PostgreSQL Connection (UPDATED FOR RENDER)
 
 DATABASES = {
     'default': dj_database_url.config(
-        # Your Supabase URL with password inserted
-        default='postgresql://postgres:Expert@Azamgarh@db.wazlbwejbkukfgssoxmi.supabase.co:5432/postgres',
+        # Fix 1: Port 6543 (Pooler) use kiya hai (Render ke liye jaruri hai)
+        # Fix 2: Password ke '@' ko '%40' likha hai taaki error na aaye
+        # Fix 3: Region 'ap-south-1' (Mumbai) lagaya hai.
+        default='postgresql://postgres.wazlbwejbkukfgssoxmi:Expert%40Azamgarh@aws-0-ap-south-1.pooler.supabase.com:6543/postgres',
         conn_max_age=600
     )
 }
