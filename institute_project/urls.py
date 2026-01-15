@@ -20,14 +20,11 @@ from core import views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    
-    # CHANGE: name='student_login' ko badal kar name='login' kar diya
-    path('student-login/', views.student_login, name='login'), 
-    
-    path('my-profile/', views.student_profile, name='student_profile'),
-    path('student-logout/', views.student_logout, name='student_logout'),
+    path('student-login/', views.student_login, name='student_login'),
+    path('my-profile/', views.student_profile, name='student_profile'), # <-- Profile Page
+    path('student-logout/', views.student_logout, name='student_logout'), # <-- Logout
     path('dashboard/', views.dashboard, name='dashboard'),
     path('donate/', views.donate, name='donate'),
     path('courses/', views.courses, name='courses'),
-    path('admission/', views.admission, name='admission'),
+    path('admission/', views.admission, name='admission'),    # Admission ke liye 
 ]
