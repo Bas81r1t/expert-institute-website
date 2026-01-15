@@ -20,12 +20,14 @@ from core import views
 
 urlpatterns = [
     path('', views.home, name='home'),
+    # --- YE LINE JODNI HAI ADMIN KE LIYE ---
+    path('admin/', admin.site.urls),
 
-    # --- FIX: Maine dono raaste bana diye hain ---
-    path('student-login/', views.student_login, name='student_login'), # HTML ke liye
-    path('login/', views.student_login, name='login'),               # Dashboard ke error ke liye
-    # ---------------------------------------------
-    
+    # --- YE HAI FIX (Double Entry) ---
+    path('student-login/', views.student_login, name='student_login'), # HTML Templates ke liye
+    path('login/', views.student_login, name='login'),               # Dashboard Error hatane ke liye
+    # ---------------------------------
+
     path('my-profile/', views.student_profile, name='student_profile'),
     path('student-logout/', views.student_logout, name='student_logout'),
     path('dashboard/', views.dashboard, name='dashboard'),

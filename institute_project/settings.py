@@ -138,6 +138,3 @@ CLOUDINARY_STORAGE = {
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-# FIX: Login URL set to 'student_login' (jo urls.py me naam hai)
-LOGIN_URL = 'student_login'
