@@ -36,7 +36,6 @@ urlpatterns = [
     path('student-logout/', views.student_logout, name='student_logout'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('donate/', views.donate, name='donate'),
-    path('courses/', views.courses, name='courses'),
     path('admission/', views.admission, name='admission'),
     path('overview/', views.institute_overview, name='overview'),
 ]

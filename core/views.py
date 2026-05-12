@@ -134,10 +134,6 @@ def logout_view(request):
 # ==========================================
 # In sabhi me 'student_data' pass kiya hai taaki Navbar sahi dikhe
 
-def courses(request):
-    student_data = get_student_session(request)
-    return render(request, 'courses.html', {'student_data': student_data})
-
 def donate(request):
     student_data = get_student_session(request)
     return render(request, 'donate.html', {'student_data': student_data})
