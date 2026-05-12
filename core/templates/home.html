@@ -69,7 +69,6 @@
                         </a>
                     {% endif %}
                     <a href="{% url 'overview' %}"class="text-gray-600 hover:text-blue-600 font-semibold transition hover:underline underline-offset-4 decoration-2 px-2">Institute Overview</a>
-                    <!-- <a href="{% url 'courses' %}" class="text-gray-600 hover:text-blue-600 font-semibold transition hover:underline underline-offset-4 decoration-2 px-2">Courses</a> -->
                     <a href="{% url 'donate' %}" class="text-gray-600 hover:text-blue-600 font-semibold transition hover:underline underline-offset-4 decoration-2 px-2">Donate</a>
                     <a href="{% url 'dashboard' %}" class="flex items-center gap-2 text-blue-700 hover:text-white border border-blue-600 hover:bg-blue-600 px-4 py-2 rounded-full transition font-semibold text-sm md:text-base shadow-sm">
                         <i class="fas fa-user-shield text-lg"></i> <span>Admin</span>
@@ -740,73 +739,6 @@
         closeBtn.addEventListener('click', closeModal);
         overlay.addEventListener('click', closeModal);
     </script>
-
-    <!-- ngo section 4 -->
-     <!-- <section class="py-19 bg-gray-50">
-        <div class="container mx-auto px-4">
-            
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-800">Our <span class="text-blue-600">Top Courses</span></h2>
-                <div class="w-16 h-1 bg-orange-500 mx-auto mt-2 rounded-full"></div>
-                <p class="text-gray-500 mt-3">Job-oriented computer courses designed for your career growth.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300 group">
-                    <div class="h-48 bg-blue-600 flex items-center justify-center group-hover:bg-blue-700 transition">
-                        <i class="fas fa-laptop-code text-6xl text-white"></i>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="bg-orange-100 text-orange-700 text-xs font-bold px-2 py-1 rounded uppercase">12 Months</span>
-                            <span class="text-blue-600 font-bold">₹12,000</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">ADCA (Advance Diploma)</h3>
-                        <p class="text-gray-500 text-sm mb-4">Complete computer application course covering Office, Tally, DTP, and Internet.</p>
-                        <a href="{% url 'courses' %}" class="block w-full text-center border-2 border-blue-600 text-blue-600 font-bold py-2 rounded hover:bg-blue-600 hover:text-white transition">View Details</a>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300 group">
-                    <div class="h-48 bg-purple-600 flex items-center justify-center group-hover:bg-purple-700 transition">
-                        <i class="fas fa-certificate text-6xl text-white"></i>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="bg-purple-100 text-purple-700 text-xs font-bold px-2 py-1 rounded uppercase">3 Months</span>
-                            <span class="text-purple-600 font-bold">₹3,500</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">CCC (Govt. Exam)</h3>
-                        <p class="text-gray-500 text-sm mb-4">Essential certificate course for government jobs (NIELIT recognized).</p>
-                        <a href="{% url 'courses' %}" class="block w-full text-center border-2 border-purple-600 text-purple-600 font-bold py-2 rounded hover:bg-purple-600 hover:text-white transition">View Details</a>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300 group">
-                    <div class="h-48 bg-green-600 flex items-center justify-center group-hover:bg-green-700 transition">
-                        <i class="fas fa-code text-6xl text-white"></i>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded uppercase">6 Months</span>
-                            <span class="text-green-600 font-bold">₹8,000</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Web Designing</h3>
-                        <p class="text-gray-600 text-sm mb-4">Learn HTML, CSS, JavaScript & Bootstrap to create stunning websites.</p>
-                        <a href="{% url 'courses' %}" class="block w-full text-center border-2 border-green-600 text-green-600 font-bold py-2 rounded hover:bg-green-600 hover:text-white transition">View Details</a>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="text-center mt-10">
-                <a href="{% url 'courses' %}" class="inline-block bg-gray-800 text-white px-8 py-3 rounded-full font-semibold hover:bg-gray-900 transition shadow-lg">
-                    View All Courses <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-        </div>
-    </section> -->
     
 
     <section class="py-10 bg-white relative">
@@ -914,24 +846,12 @@
                     <h3 class="text-white text-lg font-bold mb-4 uppercase tracking-wide">Quick Links</h3>
                     <ul class="space-y-2 text-sm">
                         <li><a href="{% url 'home' %}" class="hover:text-orange-500 transition"><i class="fas fa-angle-right mr-2 text-gray-600"></i> Home</a></li>
-                        <!-- <li><a href="{% url 'courses' %}" class="hover:text-orange-500 transition"><i class="fas fa-angle-right mr-2 text-gray-600"></i> All Courses</a></li> -->
                         <li><a href="{% url 'donate' %}" class="hover:text-orange-500 transition"><i class="fas fa-angle-right mr-2 text-gray-600"></i> Donate Now</a></li>
                         <li><a href="#" class="hover:text-orange-500 transition"><i class="fas fa-angle-right mr-2 text-gray-600"></i> Student Gallery</a></li>
                         <li><a href="{% url 'student_login' %}" class="hover:text-orange-500 transition"><i class="fas fa-angle-right mr-2 text-gray-600"></i> Student Login</a></li>
                         <li><a href="#" class="hover:text-orange-500 transition"><i class="fas fa-angle-right mr-2 text-gray-600"></i> Privacy Policy</a></li>
                     </ul>
                 </div>
-
-                <!-- <div>
-                    <h3 class="text-white text-lg font-bold mb-4 uppercase tracking-wide">Top Courses</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-orange-500 transition"><i class="fas fa-circle text-[6px] mr-2 text-blue-500"></i> ADCA Course</a></li>
-                        <li><a href="#" class="hover:text-orange-500 transition"><i class="fas fa-circle text-[6px] mr-2 text-blue-500"></i> CCC Certificate</a></li>
-                        <li><a href="#" class="hover:text-orange-500 transition"><i class="fas fa-circle text-[6px] mr-2 text-blue-500"></i> Tally Prime with GST</a></li>
-                        <li><a href="#" class="hover:text-orange-500 transition"><i class="fas fa-circle text-[6px] mr-2 text-blue-500"></i> Web Designing</a></li>
-                        <li><a href="#" class="hover:text-orange-500 transition"><i class="fas fa-circle text-[6px] mr-2 text-blue-500"></i> Digital Marketing</a></li>
-                    </ul>
-                </div> -->
 
                 <div>
                     <h3 class="text-white text-lg font-bold mb-4 uppercase tracking-wide">Contact Us</h3>
