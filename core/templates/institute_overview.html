@@ -7,6 +7,22 @@
     <title>Institute Overview - Expert Institute</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        .ken-burns {
+            animation: kenburns 6s infinite alternate;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        @keyframes kenburns {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.15); }
+        }
+
+        .ken-burns.active {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body class="font-sans bg-gray-50 text-gray-800">
 
@@ -20,8 +36,7 @@
         </div>
     </nav>
 
-  <header class="relative w-full h-[600px] overflow-hidden bg-black flex items-center justify-center">
-        
+    <header class="relative w-full h-[600px] overflow-hidden bg-black flex items-center justify-center">
         <div class="absolute inset-0 z-0">
             <img src="{% static 'images/ex9.jpg' %}" class="ken-burns absolute inset-0 w-full h-full object-cover opacity-0">
             <img src="{% static 'images/ex2.jpg' %}" class="ken-burns absolute inset-0 w-full h-full object-cover opacity-0">
@@ -43,7 +58,6 @@
                 <p class="text-lg md:text-xl text-gray-200 font-medium leading-relaxed mb-0">
                     Empowering rural youth and women with high-end computer skills for a digitally advanced tomorrow.
                 </p>
-                
                 <div class="mt-8 flex flex-wrap justify-center gap-6 opacity-80 text-xs text-blue-200">
                     <span class="flex items-center gap-2"><i class="fas fa-certificate"></i> ISO 9001:2015</span>
                     <span class="flex items-center gap-2"><i class="fas fa-university"></i> GOVT. RECOGNIZED</span>
@@ -53,25 +67,9 @@
         </div>
     </header>
 
-    <style>
-        .ken-burns {
-            animation: kenburns 6s infinite alternate;
-            transition: opacity 1.5s ease-in-out;
-        }
-
-        @keyframes kenburns {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.15); }
-        }
-
-        .ken-burns.active {
-            opacity: 1;
-        }
-    </style>
-
     <main class="container mx-auto px-4 py-12">
 
-       <section class="mb-16 py-10 rounded-3xl" style="background-color: transparent;">
+        <section class="mb-16 py-10 rounded-3xl" style="background-color: transparent;">
             <div class="text-center mb-10">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800 border-b-4 border-orange-500 inline-block pb-2 uppercase tracking-wide">Hamare Anokhe Milestone</h2>
                 <div class="w-24 h-1.5 bg-blue-700 mx-auto rounded-full mb-4"></div>
@@ -79,64 +77,61 @@
             </div>
 
             <div class="hidden md:block relative w-full max-w-[95%] mx-auto h-[850px] mt-10">
-                
-                <div onclick="openMilestone('ex1', '{% static 'images/ex1.jpg' %}')" class="absolute top-4 left-[2%] w-[380px] p-4 bg-white shadow-xl rounded-md -rotate-6 transform hover:rotate-0 hover:scale-105 transition duration-300 z-10 border border-gray-100 cursor-pointer">
+                <div data-img="{% static 'images/ex1.jpg' %}" onclick="openMilestone('ex1', this.dataset.img)" class="absolute top-4 left-[2%] w-[380px] p-4 bg-white shadow-xl rounded-md -rotate-6 transform hover:rotate-0 hover:scale-105 transition duration-300 z-10 border border-gray-100 cursor-pointer">
                     <img src="{% static 'images/ex1.jpg' %}" alt="Purana Function 1" class="w-full h-auto object-cover rounded shadow-sm">
                 </div>
                 
-                <div onclick="openMilestone('ex2', '{% static 'images/ex2.jpg' %}')" class="absolute -top-4 left-[30%] w-[450px] p-4 bg-white shadow-2xl rounded-md rotate-3 transform hover:rotate-0 hover:scale-105 transition duration-300 z-30 border border-gray-100 cursor-pointer">
+                <div data-img="{% static 'images/ex2.jpg' %}" onclick="openMilestone('ex2', this.dataset.img)" class="absolute -top-4 left-[30%] w-[450px] p-4 bg-white shadow-2xl rounded-md rotate-3 transform hover:rotate-0 hover:scale-105 transition duration-300 z-30 border border-gray-100 cursor-pointer">
                     <img src="{% static 'images/ex2.jpg' %}" alt="Old Batch" class="w-full h-auto object-cover rounded shadow-sm">
                 </div>
 
-                <div onclick="openMilestone('ex3', '{% static 'images/ex3.jpg' %}')" class="absolute top-8 right-[2%] w-[380px] p-4 bg-white shadow-xl rounded-md rotate-6 transform hover:rotate-0 hover:scale-105 transition duration-300 z-10 border border-gray-100 cursor-pointer">
+                <div data-img="{% static 'images/ex3.jpg' %}" onclick="openMilestone('ex3', this.dataset.img)" class="absolute top-8 right-[2%] w-[380px] p-4 bg-white shadow-xl rounded-md rotate-6 transform hover:rotate-0 hover:scale-105 transition duration-300 z-10 border border-gray-100 cursor-pointer">
                     <img src="{% static 'images/ex3.jpg' %}" alt="Training Session" class="w-full h-auto object-cover rounded shadow-sm">
                 </div>
 
-                <div onclick="openMilestone('ex4', '{% static 'images/ex4.jpg' %}')" class="absolute top-[35%] left-0 w-[420px] p-4 bg-white shadow-xl rounded-md -rotate-3 transform hover:rotate-0 hover:scale-105 transition duration-300 z-20 border border-gray-100 cursor-pointer">
+                <div data-img="{% static 'images/ex4.jpg' %}" onclick="openMilestone('ex4', this.dataset.img)" class="absolute top-[35%] left-0 w-[420px] p-4 bg-white shadow-xl rounded-md -rotate-3 transform hover:rotate-0 hover:scale-105 transition duration-300 z-20 border border-gray-100 cursor-pointer">
                     <img src="{% static 'images/ex4.jpg' %}" alt="Certification Distribution" class="w-full h-auto object-cover rounded shadow-sm">
                 </div>
                 
-                <div onclick="openMilestone('ex9', '{% static 'images/ex9.jpg' %}')" class="absolute top-[32%] left-[50%] -translate-x-1/2 w-[700px] p-5 bg-white shadow-2xl rounded-lg -rotate-2 transform hover:rotate-0 hover:scale-105 transition duration-300 z-50 border border-gray-100 cursor-pointer">
+                <div data-img="{% static 'images/ex9.jpg' %}" onclick="openMilestone('ex9', this.dataset.img)" class="absolute top-[32%] left-[50%] -translate-x-1/2 w-[700px] p-5 bg-white shadow-2xl rounded-lg -rotate-2 transform hover:rotate-0 hover:scale-105 transition duration-300 z-50 border border-gray-100 cursor-pointer">
                     <img src="{% static 'images/ex9.jpg' %}" alt="NGO Event" class="w-full h-auto object-cover rounded shadow-md">
                 </div>
 
-                <div onclick="openMilestone('ex6', '{% static 'images/ex6.jpg' %}')" class="absolute top-[38%] right-0 w-[420px] p-4 bg-white shadow-xl rounded-md rotate-6 transform hover:rotate-0 hover:scale-105 transition duration-300 z-20 border border-gray-100 cursor-pointer">
+                <div data-img="{% static 'images/ex6.jpg' %}" onclick="openMilestone('ex6', this.dataset.img)" class="absolute top-[38%] right-0 w-[420px] p-4 bg-white shadow-xl rounded-md rotate-6 transform hover:rotate-0 hover:scale-105 transition duration-300 z-20 border border-gray-100 cursor-pointer">
                     <img src="{% static 'images/ex6.jpg' %}" alt="Practical Training" class="w-full h-auto object-cover rounded shadow-sm">
                 </div>
 
-                <div onclick="openMilestone('ex7', '{% static 'images/ex7.jpg' %}')" class="absolute bottom-10 left-[8%] w-[400px] p-4 bg-white shadow-xl rounded-md -rotate-6 transform hover:rotate-0 hover:scale-105 transition duration-300 z-30 border border-gray-100 cursor-pointer">
+                <div data-img="{% static 'images/ex7.jpg' %}" onclick="openMilestone('ex7', this.dataset.img)" class="absolute bottom-10 left-[8%] w-[400px] p-4 bg-white shadow-xl rounded-md -rotate-6 transform hover:rotate-0 hover:scale-105 transition duration-300 z-30 border border-gray-100 cursor-pointer">
                     <img src="{% static 'images/ex7.jpg' %}" alt="Job Placement News" class="w-full h-auto object-cover rounded shadow-sm">
                 </div>
                 
-                <div onclick="openMilestone('ex8', '{% static 'images/ex8.jpg' %}')" class="absolute bottom-0 left-[48%] -translate-x-1/2 w-[550px] p-5 bg-white shadow-2xl rounded-lg rotate-2 transform hover:rotate-0 hover:scale-105 transition duration-300 z-40 border border-gray-100 cursor-pointer">
+                <div data-img="{% static 'images/ex8.jpg' %}" onclick="openMilestone('ex8', this.dataset.img)" class="absolute bottom-0 left-[48%] -translate-x-1/2 w-[550px] p-5 bg-white shadow-2xl rounded-lg rotate-2 transform hover:rotate-0 hover:scale-105 transition duration-300 z-40 border border-gray-100 cursor-pointer">
                     <img src="{% static 'images/ex8.jpg' %}" alt="Ngo Group Photo" class="w-full h-auto object-cover rounded shadow-md">
                 </div>
 
-                <div onclick="openMilestone('ex1_bottom', '{% static 'images/ex1.jpg' %}')" class="absolute bottom-12 right-[6%] w-[400px] p-4 bg-white shadow-xl rounded-md -rotate-3 transform hover:rotate-0 hover:scale-105 transition duration-300 z-30 border border-gray-100 cursor-pointer">
+                <div data-img="{% static 'images/ex1.jpg' %}" onclick="openMilestone('ex1_bottom', this.dataset.img)" class="absolute bottom-12 right-[6%] w-[400px] p-4 bg-white shadow-xl rounded-md -rotate-3 transform hover:rotate-0 hover:scale-105 transition duration-300 z-30 border border-gray-100 cursor-pointer">
                     <img src="{% static 'images/ex1.jpg' %}" alt="Ex Student Visit" class="w-full h-auto object-cover rounded shadow-sm">
                 </div>
-
             </div>
 
             <div class="md:hidden grid grid-cols-2 gap-4 max-w-sm mx-auto px-4 mt-8">
-                <div onclick="openMilestone('ex1', '{% static 'images/ex1.jpg' %}')" class="aspect-square bg-white shadow rounded-lg p-2 cursor-pointer"><img src="{% static 'images/ex1.jpg' %}" class="w-full h-full object-cover rounded"></div>
-                <div onclick="openMilestone('ex2', '{% static 'images/ex2.jpg' %}')" class="aspect-square bg-white shadow rounded-lg p-2 cursor-pointer"><img src="{% static 'images/ex2.jpg' %}" class="w-full h-full object-cover rounded"></div>
-                <div onclick="openMilestone('ex3', '{% static 'images/ex3.jpg' %}')" class="aspect-square bg-white shadow rounded-lg p-2 cursor-pointer"><img src="{% static 'images/ex3.jpg' %}" class="w-full h-full object-cover rounded"></div>
-                <div onclick="openMilestone('ex4', '{% static 'images/ex4.jpg' %}')" class="aspect-square bg-white shadow rounded-lg p-2 cursor-pointer"><img src="{% static 'images/ex4.jpg' %}" class="w-full h-full object-cover rounded"></div>
-                <div onclick="openMilestone('ex9', '{% static 'images/ex9.jpg' %}')" class="aspect-square bg-white shadow rounded-lg p-2 col-span-2 cursor-pointer"><img src="{% static 'images/ex9.jpg' %}" class="w-full h-full object-cover rounded"></div>
-                <div onclick="openMilestone('ex6', '{% static 'images/ex6.jpg' %}')" class="aspect-square bg-white shadow rounded-lg p-2 cursor-pointer"><img src="{% static 'images/ex6.jpg' %}" class="w-full h-full object-cover rounded"></div>
-                <div onclick="openMilestone('ex7', '{% static 'images/ex7.jpg' %}')" class="aspect-square bg-white shadow rounded-lg p-2 cursor-pointer"><img src="{% static 'images/ex7.jpg' %}" class="w-full h-full object-cover rounded"></div>
-                <div onclick="openMilestone('ex8', '{% static 'images/ex8.jpg' %}')" class="aspect-square bg-white shadow rounded-lg p-2 col-span-2 cursor-pointer"><img src="{% static 'images/ex8.jpg' %}" class="w-full h-full object-cover rounded"></div>
+                <div data-img="{% static 'images/ex1.jpg' %}" onclick="openMilestone('ex1', this.dataset.img)" class="aspect-square bg-white shadow rounded-lg p-2 cursor-pointer"><img src="{% static 'images/ex1.jpg' %}" class="w-full h-full object-cover rounded"></div>
+                <div data-img="{% static 'images/ex2.jpg' %}" onclick="openMilestone('ex2', this.dataset.img)" class="aspect-square bg-white shadow rounded-lg p-2 cursor-pointer"><img src="{% static 'images/ex2.jpg' %}" class="w-full h-full object-cover rounded"></div>
+                <div data-img="{% static 'images/ex3.jpg' %}" onclick="openMilestone('ex3', this.dataset.img)" class="aspect-square bg-white shadow rounded-lg p-2 cursor-pointer"><img src="{% static 'images/ex3.jpg' %}" class="w-full h-full object-cover rounded"></div>
+                <div data-img="{% static 'images/ex4.jpg' %}" onclick="openMilestone('ex4', this.dataset.img)" class="aspect-square bg-white shadow rounded-lg p-2 cursor-pointer"><img src="{% static 'images/ex4.jpg' %}" class="w-full h-full object-cover rounded"></div>
+                <div data-img="{% static 'images/ex9.jpg' %}" onclick="openMilestone('ex9', this.dataset.img)" class="aspect-square bg-white shadow rounded-lg p-2 col-span-2 cursor-pointer"><img src="{% static 'images/ex9.jpg' %}" class="w-full h-full object-cover rounded"></div>
+                <div data-img="{% static 'images/ex6.jpg' %}" onclick="openMilestone('ex6', this.dataset.img)" class="aspect-square bg-white shadow rounded-lg p-2 cursor-pointer"><img src="{% static 'images/ex6.jpg' %}" class="w-full h-full object-cover rounded"></div>
+                <div data-img="{% static 'images/ex7.jpg' %}" onclick="openMilestone('ex7', this.dataset.img)" class="aspect-square bg-white shadow rounded-lg p-2 cursor-pointer"><img src="{% static 'images/ex7.jpg' %}" class="w-full h-full object-cover rounded"></div>
+                <div data-img="{% static 'images/ex8.jpg' %}" onclick="openMilestone('ex8', this.dataset.img)" class="aspect-square bg-white shadow rounded-lg p-2 col-span-2 cursor-pointer"><img src="{% static 'images/ex8.jpg' %}" class="w-full h-full object-cover rounded"></div>
             </div>
-
         </section>
 
         <div id="milestoneModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
             <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeMilestone()"></div>
             
-            <div id="milestoneContent" class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl z-10 flex flex-col md:flex-row overflow-hidden transform transition-all scale-95 opacity-0">
+            <div id="milestoneContent" class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl z-10 flex flex-col md:flex-row overflow-hidden transform transition-all scale-95 opacity-0 relative">
                 
-                <button onclick="closeMilestone()" class="absolute top-4 right-4 z-20 text-gray-500 hover:text-red-600 bg-white shadow-md rounded-full w-10 h-10 flex items-center justify-center transition hover:rotate-90">
+                <button onclick="closeMilestone()" class="absolute top-4 right-4 z-20 text-gray-500 hover:text-red-600 bg-white shadow-md rounded-full w-10 h-10 flex items-center justify-center transition hover:rotate-90 focus:outline-none">
                     <i class="fas fa-times text-xl"></i>
                 </button>
 
@@ -149,96 +144,15 @@
                     <span class="text-orange-500 font-bold text-sm tracking-widest uppercase mb-2"><i class="fas fa-camera-retro mr-2"></i>Flashback</span>
                     <h3 id="modalTitle" class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 leading-tight">Event Title</h3>
                     <div class="w-16 h-1.5 bg-blue-600 mb-6 rounded-full"></div>
-                    <p id="modalDesc" class="text-gray-600 leading-relaxed text-lg mb-6">
-                        Event description goes here.
-                    </p>
+                    <p id="modalDesc" class="text-gray-600 leading-relaxed text-lg mb-6">Event description goes here.</p>
                     <div class="mt-auto pt-6 border-t border-gray-200">
                         <p class="text-sm font-semibold text-gray-500"><i class="fas fa-check-circle text-green-500 mr-2"></i>Expert Institute, Jan Sewa Samiti</p>
                     </div>
                 </div>
-
             </div>
         </div>
 
-        <script>
-            // Yahan har photo ki details (Title aur Description) hain
-            const milestoneData = {
-                'ex1': {
-                    title: "The Beginning (First Batch)",
-                    desc: "This is where it all began! Our very first batch of students. We started with limited resources, but our vision was clear—to provide quality computer education to everyone."
-                },
-                'ex2': {
-                    title: "Computer Lab Setup",
-                    desc: "A proud moment when we upgraded our infrastructure. Providing hands-on practical training has always been the core focus of Expert Institute."
-                },
-                'ex3': {
-                    title: "Skill Development Workshop",
-                    desc: "Students attending a special workshop on modern technologies. We regularly organize these sessions to keep our youth updated with industry trends."
-                },
-                'ex4': {
-                    title: "Certificate Distribution",
-                    desc: "Hard work pays off! Distributing ADCA and CCC certificates to our successful candidates. Seeing the smiles on their faces is our biggest reward."
-                },
-                'ex9': {
-                    title: "Mega Annual Convocation",
-                    desc: "Our biggest event celebrating the success of hundreds of students. Local authorities and NGOs joined hands to motivate our bright stars."
-                },
-                'ex6': {
-                    title: "Practical Hardware Class",
-                    desc: "Beyond software, we ensure our students understand the hardware. A live session on PC assembling and local networking."
-                },
-                'ex7': {
-                    title: "Job Placement Mela",
-                    desc: "Connecting talent with opportunity. During our placement drive, many of our students got selected by local and national companies."
-                },
-                'ex8': {
-                    title: "Jan Sewa Samiti Team",
-                    desc: "The backbone of Expert Institute. A group photo of the dedicated teachers, volunteers, and management who make this mission possible."
-                },
-                'ex1_bottom': {
-                    title: "Alumni Meet",
-                    desc: "Our old students visiting the institute. They are now successfully employed and serve as great inspiration for the new batches."
-                }
-            };
-
-            const modal = document.getElementById('milestoneModal');
-            const modalContent = document.getElementById('milestoneContent');
-            const modalImg = document.getElementById('modalImage');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalDesc = document.getElementById('modalDesc');
-
-            function openMilestone(id, imgSrc) {
-                const data = milestoneData[id];
-                if (data) {
-                    // Set Data
-                    modalImg.src = imgSrc;
-                    modalTitle.innerText = data.title;
-                    modalDesc.innerText = data.desc;
-
-                    // Show Modal
-                    modal.classList.remove('hidden');
-                    
-                    // Smooth Animation
-                    setTimeout(() => {
-                        modalContent.classList.remove('scale-95', 'opacity-0');
-                        modalContent.classList.add('scale-100', 'opacity-100');
-                    }, 10);
-                }
-            }
-
-            function closeMilestone() {
-                // Smooth Animation out
-                modalContent.classList.remove('scale-100', 'opacity-100');
-                modalContent.classList.add('scale-95', 'opacity-0');
-                
-                // Hide Modal after animation
-                setTimeout(() => {
-                    modal.classList.add('hidden');
-                }, 300);
-            }
-        </script>
-        
-        <section class="mb-16">
+        <section class="mb-16 mt-10">
             <div class="text-center mb-10">
                 <h2 class="text-3xl font-bold text-gray-800 border-b-4 border-blue-600 inline-block pb-2">Our Leadership & Vision</h2>
             </div>
@@ -266,7 +180,6 @@
             </div>
         </section>
 
-       
         <section class="mb-16 bg-blue-50 py-12 px-6 rounded-3xl">
             <div class="text-center mb-10">
                 <h2 class="text-3xl font-bold text-gray-800 border-b-4 border-blue-600 inline-block pb-2">Campus & Facilities</h2>
@@ -297,7 +210,8 @@
         <p>&copy; 2026 Expert Institute. All Rights Reserved.</p>
     </footer>
 
-  <script>
+    <script>
+        // --- 1. Header Slider Logic ---
         const slides = document.querySelectorAll('.ken-burns');
         let current = 0;
 
@@ -306,14 +220,55 @@
             slides[index].classList.add('active');
         }
 
-        // Initialize first slide
-        showSlide(0);
+        if(slides.length > 0) {
+            showSlide(0);
+            setInterval(() => {
+                current = (current + 1) % slides.length;
+                showSlide(current);
+            }, 5000);
+        }
 
-        // Change slide every 5 seconds
-        setInterval(() => {
-            current = (current + 1) % slides.length;
-            showSlide(current);
-        }, 5000);
+        // --- 2. Milestone Modal Logic ---
+        const milestoneData = {
+            'ex1': { title: "The Beginning (First Batch)", desc: "This is where it all began! Our very first batch of students. We started with limited resources, but our vision was clear—to provide quality computer education to everyone." },
+            'ex2': { title: "Computer Lab Setup", desc: "A proud moment when we upgraded our infrastructure. Providing hands-on practical training has always been the core focus of Expert Institute." },
+            'ex3': { title: "Skill Development Workshop", desc: "Students attending a special workshop on modern technologies. We regularly organize these sessions to keep our youth updated with industry trends." },
+            'ex4': { title: "Certificate Distribution", desc: "Hard work pays off! Distributing ADCA and CCC certificates to our successful candidates. Seeing the smiles on their faces is our biggest reward." },
+            'ex9': { title: "Mega Annual Convocation", desc: "Our biggest event celebrating the success of hundreds of students. Local authorities and NGOs joined hands to motivate our bright stars." },
+            'ex6': { title: "Practical Hardware Class", desc: "Beyond software, we ensure our students understand the hardware. A live session on PC assembling and local networking." },
+            'ex7': { title: "Job Placement Mela", desc: "Connecting talent with opportunity. During our placement drive, many of our students got selected by local and national companies." },
+            'ex8': { title: "Jan Sewa Samiti Team", desc: "The backbone of Expert Institute. A group photo of the dedicated teachers, volunteers, and management who make this mission possible." },
+            'ex1_bottom': { title: "Alumni Meet", desc: "Our old students visiting the institute. They are now successfully employed and serve as great inspiration for the new batches." }
+        };
+
+        const modal = document.getElementById('milestoneModal');
+        const modalContent = document.getElementById('milestoneContent');
+        const modalImg = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
+
+        function openMilestone(id, imgSrc) {
+            const data = milestoneData[id];
+            if (data) {
+                modalImg.src = imgSrc;
+                modalTitle.innerText = data.title;
+                modalDesc.innerText = data.desc;
+                
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modalContent.classList.remove('scale-95', 'opacity-0');
+                    modalContent.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            }
+        }
+
+        function closeMilestone() {
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
     </script>
 
 </body>
