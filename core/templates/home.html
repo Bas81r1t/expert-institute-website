@@ -32,7 +32,7 @@
         <p class="text-blue-200 mt-2">Please wait a moment.</p>
     </div>
 
-    <nav class="fixed top-0 left-0 w-full bg-white shadow-md z-50 border-b border-gray-200">
+   <nav class="fixed top-0 left-0 w-full bg-white shadow-md z-50 border-b border-gray-200">
         <div class="container mx-auto px-4 py-3 relative">
             <div class="flex justify-between items-center">
                <div class="flex items-center gap-3">
@@ -48,7 +48,7 @@
                             OF COMPUTER MANAGEMENT
                         </h2>
                         <h3 class="text-[9px] md:text-xs font-semibold text-red-500 leading-none mt-0.5">
-                            (Run by:  NGO )
+                            (Run by: NGO)
                         </h3>
                     </div>
                 </div>
@@ -56,6 +56,8 @@
                 <div class="hidden lg:flex items-center gap-4">
                     <a href="{% url 'overview' %}" class="text-gray-600 hover:text-blue-600 font-semibold transition hover:underline underline-offset-4 decoration-2 px-2">Institute Overview</a>
                     <a href="{% url 'donate' %}" class="text-gray-600 hover:text-blue-600 font-semibold transition hover:underline underline-offset-4 decoration-2 px-2">Donate</a>
+                    <!-- Contact Us Link for Desktop -->
+                    <a href="{% url 'contact' %}" class="text-gray-600 hover:text-blue-600 font-semibold transition hover:underline underline-offset-4 decoration-2 px-2">Contact Us</a>
                 </div>
 
                 <button id="mobile-menu-btn" class="lg:hidden text-gray-700 focus:outline-none p-2 rounded hover:bg-gray-100">
@@ -72,6 +74,12 @@
             <a href="{% url 'donate' %}" class="flex items-center gap-3 text-gray-700 font-bold p-3 hover:bg-gray-50 rounded-lg border border-transparent hover:border-gray-200 transition">
                 <div class="w-8 h-8 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center"><i class="fas fa-hand-holding-heart"></i></div> Donate
             </a>
+            
+            <!-- Contact Us Link for Mobile -->
+            <a href="{% url 'contact' %}" class="flex items-center gap-3 text-gray-700 font-bold p-3 hover:bg-gray-50 rounded-lg border border-transparent hover:border-gray-200 transition">
+                <div class="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center"><i class="fas fa-envelope"></i></div> Contact Us
+            </a>
+            
             <div class="pb-10"></div> 
         </div>
     </nav>
@@ -113,72 +121,109 @@
    <section class="container mx-auto px-4 md:px-6 py-10 bg-white relative z-20">
         
         <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-blue-800 uppercase mb-3 tracking-wide">Why Choose Us?</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-blue-800 uppercase mb-3 tracking-wide">Our Core Pillars</h2>
             <div class="w-24 h-1.5 bg-orange-500 mx-auto rounded-full mb-4"></div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             
-            <div class="group bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl hover:border-orange-200 transition-all duration-300 transform hover:-translate-y-2 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-1.5 bg-gray-200 group-hover:bg-orange-500 transition-colors duration-300"></div>
-                <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-3xl font-bold mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm"><span class="font-serif">₹</span></div>
-                <h3 class="font-bold text-xl text-gray-800 mb-3 group-hover:text-blue-700 transition-colors">Affordable Fees</h3>
-                <p class="text-gray-500 text-sm leading-relaxed group-hover:text-gray-600">Premium education at a nominal cost.</p>
-                <div class="mt-4 text-blue-600 text-sm font-bold flex items-center gap-2 group-hover:underline">See Fee Structure <i class="fas fa-arrow-right"></i></div>
+            <!-- Card 1: Accessible Education -->
+            <div class="group bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl hover:border-blue-200 transition-all duration-300 transform hover:-translate-y-2 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1.5 bg-gray-200 group-hover:bg-blue-500 transition-colors duration-300"></div>
+                <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-3xl font-bold mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h3 class="font-bold text-xl text-gray-800 mb-3 group-hover:text-blue-700 transition-colors">Accessible Education</h3>
+                <p class="text-gray-500 text-sm leading-relaxed group-hover:text-gray-600">Free and highly subsidized digital training for underprivileged children.</p>
+                <div class="mt-4 text-blue-600 text-sm font-bold flex items-center gap-2 group-hover:underline">View Initiative <i class="fas fa-arrow-right"></i></div>
             </div>
 
-            <div class="group bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl hover:border-orange-200 transition-all duration-300 transform hover:-translate-y-2 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-1.5 bg-gray-200 group-hover:bg-orange-500 transition-colors duration-300"></div>
-                <div class="w-16 h-16 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center text-3xl mb-6 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300 shadow-sm"><i class="fas fa-certificate"></i></div>
-                <h3 class="font-bold text-xl text-gray-800 mb-3 group-hover:text-purple-700 transition-colors">Govt. Recognized</h3>
-                <p class="text-gray-500 text-sm leading-relaxed group-hover:text-gray-600">Valid ISO 9001:2015 certificates.</p>
-                <div class="mt-4 text-purple-600 text-sm font-bold flex items-center gap-2 group-hover:underline">Verify Recognition <i class="fas fa-arrow-right"></i></div>
+            <!-- Card 2: Rural Empowerment -->
+            <div class="group bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl hover:border-purple-200 transition-all duration-300 transform hover:-translate-y-2 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1.5 bg-gray-200 group-hover:bg-purple-500 transition-colors duration-300"></div>
+                <div class="w-16 h-16 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center text-3xl mb-6 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300 shadow-sm">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h3 class="font-bold text-xl text-gray-800 mb-3 group-hover:text-purple-700 transition-colors">Rural Empowerment</h3>
+                <p class="text-gray-500 text-sm leading-relaxed group-hover:text-gray-600">Bridging the digital divide by taking technology directly to remote villages.</p>
+                <div class="mt-4 text-purple-600 text-sm font-bold flex items-center gap-2 group-hover:underline">Our Reach <i class="fas fa-arrow-right"></i></div>
             </div>
 
-            <div class="group bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl hover:border-orange-200 transition-all duration-300 transform hover:-translate-y-2 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-1.5 bg-gray-200 group-hover:bg-orange-500 transition-colors duration-300"></div>
-                <div class="w-16 h-16 bg-green-50 text-green-600 rounded-full flex items-center justify-center text-3xl mb-6 group-hover:bg-green-600 group-hover:text-white transition-colors duration-300 shadow-sm"><i class="fas fa-laptop-code"></i></div>
-                <h3 class="font-bold text-xl text-gray-800 mb-3 group-hover:text-green-700 transition-colors">Practical Training</h3>
-                <p class="text-gray-500 text-sm leading-relaxed group-hover:text-gray-600">100% Practical focus on learning.</p>
-                <div class="mt-4 text-green-600 text-sm font-bold flex items-center gap-2 group-hover:underline">View Lab Policy <i class="fas fa-arrow-right"></i></div>
+            <!-- Card 3: Women in Tech -->
+            <div class="group bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl hover:border-pink-200 transition-all duration-300 transform hover:-translate-y-2 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1.5 bg-gray-200 group-hover:bg-pink-500 transition-colors duration-300"></div>
+                <div class="w-16 h-16 bg-pink-50 text-pink-600 rounded-full flex items-center justify-center text-3xl mb-6 group-hover:bg-pink-600 group-hover:text-white transition-colors duration-300 shadow-sm">
+                    <i class="fas fa-female"></i>
+                </div>
+                <h3 class="font-bold text-xl text-gray-800 mb-3 group-hover:text-pink-700 transition-colors">Women in Tech</h3>
+                <p class="text-gray-500 text-sm leading-relaxed group-hover:text-gray-600">Dedicated batches and scholarships to make young women financially independent.</p>
+                <div class="mt-4 text-pink-600 text-sm font-bold flex items-center gap-2 group-hover:underline">Support Girls <i class="fas fa-arrow-right"></i></div>
             </div>
 
+            <!-- Card 4: Skill to Livelihood -->
             <div class="group bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl hover:border-orange-200 transition-all duration-300 transform hover:-translate-y-2 relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-full h-1.5 bg-gray-200 group-hover:bg-orange-500 transition-colors duration-300"></div>
-                <div class="w-16 h-16 bg-red-50 text-red-600 rounded-full flex items-center justify-center text-3xl mb-6 group-hover:bg-red-600 group-hover:text-white transition-colors duration-300 shadow-sm"><i class="fas fa-users"></i></div>
-                <h3 class="font-bold text-xl text-gray-800 mb-3 group-hover:text-red-700 transition-colors">Placement Support</h3>
-                <p class="text-gray-500 text-sm leading-relaxed group-hover:text-gray-600">Dedicated job and career assistance.</p>
-                <div class="mt-4 text-red-600 text-sm font-bold flex items-center gap-2 group-hover:underline">Placement Record <i class="fas fa-arrow-right"></i></div>
+                <div class="w-16 h-16 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center text-3xl mb-6 group-hover:bg-orange-600 group-hover:text-white transition-colors duration-300 shadow-sm">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <h3 class="font-bold text-xl text-gray-800 mb-3 group-hover:text-orange-700 transition-colors">Skill to Livelihood</h3>
+                <p class="text-gray-500 text-sm leading-relaxed group-hover:text-gray-600">Beyond basic literacy, we provide job-oriented training for self-reliance.</p>
+                <div class="mt-4 text-orange-600 text-sm font-bold flex items-center gap-2 group-hover:underline">View Impact <i class="fas fa-arrow-right"></i></div>
             </div>
 
         </div>
     </section>
 
-    <!-- NGO Stats Section -->
-     <section class="bg-blue-900 py-16 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 20px 20px;"></div>
-
+    <!-- Official NGO Stats Section -->
+    <section class="py-16 bg-white border-y border-gray-200 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-[0.02]" style="background-image: radial-gradient(#000000 1px, transparent 1px); background-size: 20px 20px;"></div>
+        
         <div class="container mx-auto px-4 relative z-10">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl md:text-3xl font-extrabold text-gray-800 uppercase tracking-widest">Our Impact at a Glance</h2>
+                <div class="w-24 h-1.5 bg-blue-600 mx-auto rounded-full mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
                 
-                <div class="p-4">
-                    <div class="text-4xl md:text-5xl font-extrabold text-orange-400 mb-2">5000+</div>
-                    <div class="text-sm md:text-lg font-medium opacity-90">Students Trained</div>
+                <!-- Stat 1 -->
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 shadow-sm text-center relative overflow-hidden group hover:shadow-xl transition-all duration-300">
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-orange-500"></div>
+                    <div class="w-14 h-14 mx-auto bg-orange-100 text-orange-600 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition transform shadow-sm">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="text-4xl md:text-5xl font-black text-gray-900 mb-1">5000+</div>
+                    <div class="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-wider">Beneficiaries Reached</div>
                 </div>
 
-                <div class="p-4 border-l border-blue-700">
-                    <div class="text-4xl md:text-5xl font-extrabold text-green-400 mb-2">1200+</div>
-                    <div class="text-sm md:text-lg font-medium opacity-90">Jobs Secured</div>
+                <!-- Stat 2 -->
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 shadow-sm text-center relative overflow-hidden group hover:shadow-xl transition-all duration-300">
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-blue-600"></div>
+                    <div class="w-14 h-14 mx-auto bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition transform shadow-sm">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="text-4xl md:text-5xl font-black text-gray-900 mb-1">1200+</div>
+                    <div class="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-wider">Youth Employed</div>
                 </div>
 
-                <div class="p-4 border-l border-blue-700">
-                    <div class="text-4xl md:text-5xl font-extrabold text-yellow-400 mb-2">50+</div>
-                    <div class="text-sm md:text-lg font-medium opacity-90">Villages Covered</div>
+                <!-- Stat 3 -->
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 shadow-sm text-center relative overflow-hidden group hover:shadow-xl transition-all duration-300">
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-green-600"></div>
+                    <div class="w-14 h-14 mx-auto bg-green-100 text-green-600 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition transform shadow-sm">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <div class="text-4xl md:text-5xl font-black text-gray-900 mb-1">50+</div>
+                    <div class="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-wider">Villages Empowered</div>
                 </div>
 
-                <div class="p-4 border-l border-blue-700">
-                    <div class="text-4xl md:text-5xl font-extrabold text-pink-400 mb-2">15+</div>
-                    <div class="text-sm md:text-lg font-medium opacity-90">Years of Service</div>
+                <!-- Stat 4 -->
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 shadow-sm text-center relative overflow-hidden group hover:shadow-xl transition-all duration-300">
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-purple-600"></div>
+                    <div class="w-14 h-14 mx-auto bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition transform shadow-sm">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="text-4xl md:text-5xl font-black text-gray-900 mb-1">15+</div>
+                    <div class="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-wider">Years of Trust</div>
                 </div>
 
             </div>
@@ -261,7 +306,7 @@
                     
                     <div class="absolute bottom-6 right-6 bg-white p-4 rounded-lg shadow-xl border-l-4 border-blue-600 hidden md:block">
                         <p class="text-sm font-bold text-gray-800">Run by</p>
-                        <p class="text-blue-700 font-extrabold text-lg">Jan Sewa Samiti</p>
+                        <p class="text-blue-700 font-extrabold text-lg">NGO</p>
                     </div>
                 </div>
 
@@ -358,56 +403,60 @@
         </div>
     </div>
     
-
+    <!-- Updated NGO Impact Stories Section -->
     <section class="py-10 bg-white relative">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Student <span class="text-orange-500">Success Stories</span></h2>
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Our Impact <span class="text-orange-500">Stories</span></h2>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 
+                <!-- Story 1: Rural Youth / Employment -->
                 <div class="bg-blue-50 p-6 rounded-2xl border border-blue-100 relative">
                     <i class="fas fa-quote-left text-4xl text-blue-200 absolute top-4 left-4"></i>
                     <p class="text-gray-600 italic mb-6 relative z-10 pt-6">
-                        "I came from a very poor family and couldn't afford expensive coaching. Expert Institute gave me ADCA training at a very low fee. Today I am working as an Accountant."
+                        "Being the eldest son of a farmer, higher education was a distant dream. The NGO's free digital literacy program didn't just teach me computers; it gave me a career. Today, I support my family."
                     </p>
                     <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
-                            <i class="fas fa-user text-gray-500"></i> </div>
+                        <div class="w-12 h-12 bg-blue-200 text-blue-700 rounded-full flex items-center justify-center overflow-hidden font-bold text-xl">
+                            R
+                        </div>
                         <div>
                             <h4 class="font-bold text-gray-800">Rahul Verma</h4>
-                            <p class="text-xs text-blue-600">Accountant, Lucknow</p>
+                            <p class="text-xs text-blue-600">Data Entry Operator, Azamgarh</p>
                         </div>
                     </div>
                 </div>
 
+                <!-- Story 2: Women Empowerment -->
                 <div class="bg-orange-50 p-6 rounded-2xl border border-orange-100 relative">
                     <i class="fas fa-quote-left text-4xl text-orange-200 absolute top-4 left-4"></i>
                     <p class="text-gray-600 italic mb-6 relative z-10 pt-6">
-                        "The teachers here are very supportive. They focus on practical training which helped me clear my CCC exam with 'A' Grade in the first attempt."
+                        "In my village, girls rarely step out to study. The special women's batch here gave me a safe space to learn. Now, I manage accounts for a local business and pay for my own graduation."
                     </p>
                     <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
-                            <i class="fas fa-user text-gray-500"></i>
+                        <div class="w-12 h-12 bg-orange-200 text-orange-700 rounded-full flex items-center justify-center overflow-hidden font-bold text-xl">
+                            P
                         </div>
                         <div>
                             <h4 class="font-bold text-gray-800">Priya Singh</h4>
-                            <p class="text-xs text-orange-600">Student, CCC</p>
+                            <p class="text-xs text-orange-600">First-Gen Learner</p>
                         </div>
                     </div>
                 </div>
 
+                <!-- Story 3: Skill to Livelihood / Digital India -->
                 <div class="bg-green-50 p-6 rounded-2xl border border-green-100 relative">
                     <i class="fas fa-quote-left text-4xl text-green-200 absolute top-4 left-4"></i>
                     <p class="text-gray-600 italic mb-6 relative z-10 pt-6">
-                        "Expert Institute is doing great work for rural youth. I learned Web Designing here and now I am starting my own freelancing work from home."
+                        "Lack of opportunities forced many to migrate. Thanks to the Jan Sewa Samiti's skill initiative, I learned technology locally. Now, I run my own Common Service Center (CSC) and help villagers."
                     </p>
                     <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center overflow-hidden">
-                            <i class="fas fa-user text-gray-500"></i>
+                        <div class="w-12 h-12 bg-green-200 text-green-700 rounded-full flex items-center justify-center overflow-hidden font-bold text-xl">
+                            A
                         </div>
                         <div>
                             <h4 class="font-bold text-gray-800">Amit Kumar</h4>
-                            <p class="text-xs text-green-600">Freelancer</p>
+                            <p class="text-xs text-green-600">CSC Operator (Digital India)</p>
                         </div>
                     </div>
                 </div>
@@ -438,54 +487,78 @@
         </div>
     </section>
 
-    <footer class="bg-gray-900 text-gray-300 pt-16 pb-8">
+    <!-- NGO/Govt Style Professional Footer -->
+    <footer class="bg-slate-900 text-gray-300 pt-12 pb-6 border-t-4 border-orange-500">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
                 
-                <div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <img src="{% static 'images/logo.png' %}" alt="Logo" class="h-10 w-auto bg-white rounded p-1">
-                        <h3 class="text-white text-lg font-bold uppercase">Expert Institute</h3>
+                <!-- Column 1: About NGO -->
+                <div class="lg:pr-4">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="{% static 'images/logo.png' %}" alt="Logo" class="h-12 w-auto bg-white rounded p-1">
+                        <div>
+                            <h3 class="text-white text-base font-extrabold uppercase leading-tight tracking-wide">Expert Institute</h3>
+                            <p class="text-[10px] text-orange-400 font-bold uppercase tracking-widest mt-0.5">Run by : NGO</p>
+                        </div>
                     </div>
-                    <p class="text-sm leading-relaxed mb-4">
-                        Run by <strong>Jan Sewa Samiti</strong>. We are dedicated to providing computer education to the underprivileged sections of society to make them self-reliant.
+                    <p class="text-sm leading-relaxed mb-5 text-gray-400">
+                        A registered NGO dedicated to bridging the digital divide by providing affordable computer education to rural youth and empowering women for a self-reliant India.
                     </p>
-                    <div class="flex gap-4">
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-600 hover:text-white transition"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-red-600 hover:text-white transition"><i class="fab fa-youtube"></i></a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-400 hover:text-white transition"><i class="fab fa-twitter"></i></a>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-8 h-8 bg-slate-800 rounded flex items-center justify-center hover:bg-blue-600 hover:text-white transition shadow-sm"><i class="fab fa-facebook-f text-sm"></i></a>
+                        <a href="#" class="w-8 h-8 bg-slate-800 rounded flex items-center justify-center hover:bg-pink-600 hover:text-white transition shadow-sm"><i class="fab fa-instagram text-sm"></i></a>
+                        <a href="#" class="w-8 h-8 bg-slate-800 rounded flex items-center justify-center hover:bg-red-600 hover:text-white transition shadow-sm"><i class="fab fa-youtube text-sm"></i></a>
+                        <a href="#" class="w-8 h-8 bg-slate-800 rounded flex items-center justify-center hover:bg-blue-400 hover:text-white transition shadow-sm"><i class="fab fa-twitter text-sm"></i></a>
                     </div>
                 </div>
 
-
+                <!-- Column 2: Quick Links -->
                 <div>
-                    <h3 class="text-white text-lg font-bold mb-4 uppercase tracking-wide">Contact Us</h3>
-                    <ul class="space-y-4 text-sm">
+                    <h3 class="text-white text-sm font-bold mb-4 uppercase tracking-widest border-b border-slate-700 pb-2 inline-block">Quick Links</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="{% url 'home' %}" class="hover:text-orange-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px]"></i> Home Page</a></li>
+                        <li><a href="{% url 'overview' %}" class="hover:text-orange-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px]"></i> About Samiti</a></li>
+                        <li><a href="{% url 'donate' %}" class="hover:text-orange-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px]"></i> Donate Now</a></li>
+                        <li><a href="{% url 'contact' %}" class="hover:text-orange-400 transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px]"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Our Initiatives -->
+                <div>
+                    <h3 class="text-white text-sm font-bold mb-4 uppercase tracking-widest border-b border-slate-700 pb-2 inline-block">Our Initiatives</h3>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-[10px] text-green-500"></i> Digital Literacy</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-[10px] text-green-500"></i> Skill Development</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-[10px] text-green-500"></i> Women Empowerment</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-[10px] text-green-500"></i> Rural Education</li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact Us -->
+                <div>
+                    <h3 class="text-white text-sm font-bold mb-4 uppercase tracking-widest border-b border-slate-700 pb-2 inline-block">Contact Info</h3>
+                    <ul class="space-y-4 text-sm text-gray-400">
                         <li class="flex items-start gap-3">
-                            <i class="fas fa-map-marker-alt text-orange-500 mt-1"></i>
-                            <span>Near City Azamgarh, Tarawa,<br>Uttar Pradesh, India - 276123</span>
+                            <i class="fas fa-map-marker-alt text-orange-500 mt-1 text-base shrink-0"></i>
+                            <span class="leading-snug">Near City Azamgarh, Tarawa,<br>Uttar Pradesh, India - 276123</span>
                         </li>
                         <li class="flex items-center gap-3">
-                            <i class="fas fa-phone-alt text-orange-500"></i>
+                            <i class="fas fa-phone-alt text-orange-500 text-base shrink-0"></i>
                             <span>+91 98765 43210</span>
                         </li>
                         <li class="flex items-center gap-3">
-                            <i class="fas fa-envelope text-orange-500"></i>
+                            <i class="fas fa-envelope text-orange-500 text-base shrink-0"></i>
                             <span>info@expertinstitute.org</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <i class="fas fa-clock text-orange-500"></i>
-                            <span>Mon - Sat: 9:00 AM - 6:00 PM</span>
                         </li>
                     </ul>
                 </div>
 
             </div>
 
-            <div class="border-t border-gray-800 pt-8 text-center text-xs text-gray-500">
-                <p>&copy; 2026 Expert Institute of Computer Management. All Rights Reserved.</p>
-                <p class="mt-2">Designed & Developed with <i class="fas fa-heart text-red-500"></i> for Social Cause.</p>
+            <!-- Bottom Copyright Bar -->
+            <div class="border-t border-slate-800 pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <p>&copy; 2026 Expert Institute. Run by <strong>NGO</strong>.</p>
+                <p class="mt-2 md:mt-0 font-medium tracking-wide">Designed & Developed with <i class="fas fa-heart text-red-500 mx-1 animate-pulse"></i> for a Social Cause.</p>
             </div>
         </div>
     </footer>

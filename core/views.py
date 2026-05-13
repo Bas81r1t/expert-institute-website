@@ -156,3 +156,6 @@ def institute_overview(request):
     # Navbar me student login dikhane ke liye data get kar rahe hain
     student_data = get_student_session(request)
     return render(request, 'institute_overview.html', {'student_data': student_data})
+
+def contact(request):
+    return render(request, 'contact.html')
